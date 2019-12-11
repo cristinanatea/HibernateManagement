@@ -1,5 +1,6 @@
 package crud.management.persistence.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,14 +10,19 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "angajat")
-public class Angajat {
+public class Angajat implements Serializable {
 
- @Id
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+@Id
  @GeneratedValue
  private int angajatID;
  private int functieID;
@@ -31,17 +37,14 @@ public class Angajat {
  private int  nrZileConcediuMedicalLuat;
  private String cnp;
  
- 
+
+ @JoinColumn(name = "managerID", referencedColumnName = "managerID")
  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-//@ElementCollection(targetClass=Role.class)
-@Column(name = "MANAGER_ID")
  private Set<Manager> manageri = 
 		 new HashSet <Manager>(0);
- 
 
+ @JoinColumn(name = "proiectID", referencedColumnName = "proiectID")
  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-//@ElementCollection(targetClass=Role.class)
-@Column(name = "proiectID")
  private Set<Proiect> proiecte = 
 		 new HashSet <Proiect>(0);
 

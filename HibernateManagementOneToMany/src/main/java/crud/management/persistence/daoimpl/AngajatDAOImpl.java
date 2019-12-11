@@ -37,6 +37,8 @@ public class AngajatDAOImpl implements AngajatDAO {
 
 	public List<Angajat> listAngajati() {
 		Session session = this.sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		
 		List<Angajat> angajatiList = session.createQuery("from Angajat").list();
 		for (Angajat angajat : angajatiList) {
 			logger.info("Person List::" + angajat);

@@ -1,6 +1,8 @@
 package crud.management.persistence.model;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,9 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "proiect")
-public class Proiect {
+public class Proiect implements Serializable {
 
- @Id
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+@Id
  @GeneratedValue
  private int proiectID;
  private int coordonatorID;
