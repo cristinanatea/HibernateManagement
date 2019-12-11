@@ -37,6 +37,13 @@ public class Angajat {
 @Column(name = "MANAGER_ID")
  private Set<Manager> manageri = 
 		 new HashSet <Manager>(0);
+ 
+
+ @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+//@ElementCollection(targetClass=Role.class)
+@Column(name = "proiectID")
+ private Set<Proiect> proiecte = 
+		 new HashSet <Proiect>(0);
 
  
  public Angajat() {
@@ -166,6 +173,11 @@ public void setCnp(String cnp) {
 public Set<Manager> getManageri() 
 {
 	return manageri;
+} 
+
+public Set<Proiect> getProiecte() 
+{
+	return proiecte;
 } 
 
 }
