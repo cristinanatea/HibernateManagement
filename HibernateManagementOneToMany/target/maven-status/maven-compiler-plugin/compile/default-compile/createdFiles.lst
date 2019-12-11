@@ -1,8 +1,0 @@
-crud\management\persistence\dao\ManagerDAO.class
-crud\management\persistence\daoimpl\ManagerDAOImpl.class
-crud\management\AppMain.class
-crud\management\persistence\util\HibernateUtil.class
-crud\management\persistence\dao\AngajatDAO.class
-crud\management\persistence\model\Angajat.class
-crud\management\persistence\model\Manager.class
-crud\management\persistence\daoimpl\AngajatDAOImpl.class
