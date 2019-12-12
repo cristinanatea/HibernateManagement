@@ -24,11 +24,13 @@ public class Manager implements Serializable {
  private String nume;
  private String dataAngajarii;
  
+ /*
  @JoinColumn(name = "managerID", referencedColumnName = "managerID")
  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
  private Set<Manager> manageri = 
 		 new HashSet <Manager>(0);
-
+*/
+ 
  public Manager() {
   super();
  }

@@ -25,12 +25,12 @@ public class Proiect implements Serializable {
  private String descriere;
  private String dataInceput;
  private String dataSfarsit;
- 
+ /*
  @JoinColumn(name = "proiectID", referencedColumnName = "proiectID")
  @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
  private Set<Proiect> proiecte = 
 		 new HashSet <Proiect>(0);
-
+*/
  public Proiect() {
   super();
  }

@@ -27,7 +27,7 @@ import crud.management.persistence.dao.ManagerDAO;
 import crud.management.persistence.dao.RequestStatus;
 
 @RestController
-@Path("/users")
+@Path("/manageri")
 public class ManagerController {
 
 	/*---get all manageri---*/

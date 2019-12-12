@@ -26,7 +26,7 @@ import crud.management.persistence.dao.ProiectDAO;
 import crud.management.persistence.dao.RequestStatus;
 
 @RestController
-@Path("/users")
+@Path("/proiect")
 public class ProiectController {
 
 	/*---get all projects---*/

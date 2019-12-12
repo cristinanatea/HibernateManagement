@@ -39,13 +39,15 @@ public class Angajat implements Serializable {
  private String cnp;
  
 
- @JoinColumn(name = "managerID", referencedColumnName = "managerID")
+ //@JoinColumn(name = "managerID", referencedColumnName = "managerID")
  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+ @Column(name = "manager_ID")
  private Set<Manager> manageri = 
 		 new HashSet <Manager>(0);
 
- @JoinColumn(name = "proiectID", referencedColumnName = "proiectID")
+ //@JoinColumn(name = "proiectID", referencedColumnName = "proiectID")
  @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+ @Column(name = "proiect_ID")
  private Set<Proiect> proiecte = 
 		 new HashSet <Proiect>(0);
 
