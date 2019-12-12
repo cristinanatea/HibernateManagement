@@ -21,72 +21,71 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import crud.management.persistence.model.Angajat;
-import crud.management.persistence.util.HibernateUtil;
-import crud.management.persistence.dao.AngajatDAO;
+import crud.management.persistence.model.Proiect;
+import crud.management.persistence.dao.ProiectDAO;
 import crud.management.persistence.dao.RequestStatus;
 
 @RestController
 @Path("/users")
-public class AngajatController {
+public class ProiectController {
 
-	/*---get all angajati---*/
+	/*---get all projects---*/
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Angajat> listUsers() {
+	public List<Proiect> listUsers() {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
+		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
 
-		return angajatDao.listAngajati();
+		return proiectDao.listProiecte();
 	}
 
-	/*---get a book by ID---*/
+	/*---get a project by ID---*/
 	@GET
-	@Path("/angajat/{id}")
+	@Path("/proiect/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Angajat get(@PathVariable("id") int angajatID) {
+	public Proiect get(@PathVariable("id") int proiectID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
+		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
 
-		return angajatDao.getAngajatById(angajatID);
+		return proiectDao.getProiectById(proiectID);
 	}
 
-	/*---add a new angajat---*/
+	/*---add a new project---*/
 	@POST
-	@Path("/angajat")
+	@Path("/proiect")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus save(@RequestBody Angajat angajat) {
+	public RequestStatus save(@RequestBody Proiect proiect) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
-		return angajatDao.addAngajat(angajat);
+		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
+		return proiectDao.addProiect(proiect);
 	}
 
-	/*---update an angajat by id---*/
+	/*---update an project by id---*/
 	@PUT
-	@Path("/angajat/{id}")
+	@Path("/proiect/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus update(@RequestBody Angajat angajat) {
+	public RequestStatus update(@RequestBody Proiect proiect) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
-		return angajatDao.updateAngajat(angajat);
+		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
+		return proiectDao.updateProiect(proiect);
 	}
-	
-	/*---delete an angajat by id---*/
+
+	/*---delete an project by id---*/
 	@DELETE
-	@Path("/angajat/{id}")
+	@Path("/proiect/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus delete(@RequestBody int angajatID) {
+	public RequestStatus delete(@RequestBody int proiectID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
-		return angajatDao.removeAngajat(angajatID);
+		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
+		return proiectDao.removeProiect(proiectID);
 	}
-	
+
 }

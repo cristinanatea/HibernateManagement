@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import crud.management.persistence.model.Angajat;
 
 import crud.management.persistence.dao.AngajatDAO;
+import crud.management.persistence.dao.RequestStatus;
 
 public class AngajatDAOImpl implements AngajatDAO {
 
@@ -21,16 +22,19 @@ public class AngajatDAOImpl implements AngajatDAO {
 		this.sessionFactory = sf;
 	}
 
-	public void addAngajat(Angajat angajat) {
+	public RequestStatus  addAngajat(Angajat angajat) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(angajat);
 		logger.info("Person saved successfully, Person Details=" + angajat);
+		return  new  RequestStatus() ;
+			
 	}
 
-	public void updateAngajat(Angajat angajat) {
+	public RequestStatus updateAngajat(Angajat angajat) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(angajat);
 		logger.info("Angajat updated successfully, Angajat Details=" + angajat);
+		return new RequestStatus();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,13 +57,14 @@ public class AngajatDAOImpl implements AngajatDAO {
 		return angajat;
 	}
 
-	public void removeAngajat(int angajatID) {
+	public RequestStatus removeAngajat(int angajatID) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Angajat angajat = (Angajat) session.load(Angajat.class, new Integer(angajatID));
 		if (null != angajat) {
 			session.delete(angajat);
 		}
 		logger.info("Angajat deleted successfully, angajat details=" + angajat);
+		return new RequestStatus();
 	}
 
 }

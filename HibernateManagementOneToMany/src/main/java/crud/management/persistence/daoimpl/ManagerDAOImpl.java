@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import crud.management.persistence.model.Manager;
 import crud.management.persistence.dao.ManagerDAO;
+import crud.management.persistence.dao.RequestStatus;
 
 
 public class ManagerDAOImpl implements ManagerDAO {
@@ -22,17 +23,19 @@ public class ManagerDAOImpl implements ManagerDAO {
 	}
 
 	
-	public void addManager(Manager manager) {
+	public RequestStatus addManager(Manager manager) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(manager);
 		logger.info("Manager saved successfully, Manager Details="+manager);
+		return  new  RequestStatus() ;
 	}
 
 	
-	public void updateManager(Manager manager) {
+	public RequestStatus updateManager(Manager manager) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(manager);
 		logger.info("Manager updated successfully, Manager Details="+manager);
+		return  new  RequestStatus() ;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -55,13 +58,14 @@ public class ManagerDAOImpl implements ManagerDAO {
 	}
 
 	
-	public void removeManager(int managerID) {
+	public RequestStatus removeManager(int managerID) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Manager manager = (Manager) session.load(Manager.class, new Integer(managerID));
 		if(null != manager){
 			session.delete(manager);
 		}
 		logger.info("Angajat deleted successfully, angajat details="+manager);
+		return  new  RequestStatus() ;
 	}
 
 }

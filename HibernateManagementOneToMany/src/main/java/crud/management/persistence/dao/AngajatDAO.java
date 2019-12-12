@@ -6,9 +6,10 @@ import crud.management.persistence.model.Angajat;
 
 public interface AngajatDAO {
 
-	public void addAngajat(Angajat angajat);
-	public void updateAngajat(Angajat angajat);
+	public RequestStatus addAngajat(Angajat angajat);
+	public RequestStatus updateAngajat(Angajat angajat);
 	public List<Angajat> listAngajati();
 	public Angajat getAngajatById(int angajatID);
-	public void removeAngajat(int angajatID);
+	public RequestStatus removeAngajat(int angajatID);
+	
 }

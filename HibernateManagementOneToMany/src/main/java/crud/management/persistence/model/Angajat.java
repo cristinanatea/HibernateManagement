@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -44,7 +45,7 @@ public class Angajat implements Serializable {
 		 new HashSet <Manager>(0);
 
  @JoinColumn(name = "proiectID", referencedColumnName = "proiectID")
- @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+ @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
  private Set<Proiect> proiecte = 
 		 new HashSet <Proiect>(0);
 
@@ -181,7 +182,17 @@ public Set<Manager> getManageri()
 public Set<Proiect> getProiecte() 
 {
 	return proiecte;
+}
+
+
+@Override
+public String toString() {
+	return "Angajat [angajatID=" + angajatID + ", functieID=" + functieID + ", proiectID=" + proiectID
+			+ ", dataAngajarii=" + dataAngajarii + ", norma=" + norma + ", managerID=" + managerID + ", nume=" + nume
+			+ ", prenume=" + prenume + ", adresa=" + adresa + ", telefon=" + telefon + ", nrZileConcediuMedicalLuat="
+			+ nrZileConcediuMedicalLuat + ", cnp=" + cnp + ", manageri=" + manageri + ", proiecte=" + proiecte + "]";
 } 
+
 
 }
 
