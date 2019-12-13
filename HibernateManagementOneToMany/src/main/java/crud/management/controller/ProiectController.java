@@ -68,7 +68,7 @@ public class ProiectController {
 
 	/*---update an project by id---*/
 	@PUT
-	@Path("/proiect/{id}")
+	@Path("/update/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RequestStatus update(@RequestBody Proiect proiect) {
 		Resource r = new ClassPathResource("applicationContext.xml");
@@ -79,7 +79,7 @@ public class ProiectController {
 
 	/*---delete an project by id---*/
 	@DELETE
-	@Path("/proiect/{id}")
+	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RequestStatus delete(@RequestBody int proiectID) {
 		Resource r = new ClassPathResource("applicationContext.xml");

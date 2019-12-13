@@ -69,7 +69,7 @@ public class ManagerController {
 
 	/*---update an manager by id---*/
 	@PUT
-	@Path("/manager/{id}")
+	@Path("/update/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RequestStatus update(@RequestBody Manager manager) {
 		Resource r = new ClassPathResource("applicationContext.xml");
@@ -80,7 +80,7 @@ public class ManagerController {
 	
 	/*---delete an manager by id---*/
 	@DELETE
-	@Path("/manager/{id}")
+	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RequestStatus delete(@RequestBody int managerID) {
 		Resource r = new ClassPathResource("applicationContext.xml");

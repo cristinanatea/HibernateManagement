@@ -66,5 +66,7 @@ public class AngajatDAOImpl implements AngajatDAO {
 		logger.info("Angajat deleted successfully, angajat details=" + angajat);
 		return new RequestStatus();
 	}
+	
+	public Angajat logincheck(String email, String password);
 
 }

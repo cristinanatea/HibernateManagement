@@ -1,4 +1,4 @@
-package crud.management;
+package crud.management.commons;
 
 
 import org.hibernate.Session;

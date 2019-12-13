@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jettison.json.JSONObject;
 import org.hibernate.Session;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class AngajatController {
 
 	/*---update an angajat by id---*/
 	@PUT
-	@Path("/angajat/{id}")
+	@Path("/update/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RequestStatus update(@RequestBody Angajat angajat) {
 		Resource r = new ClassPathResource("applicationContext.xml");
@@ -80,7 +81,7 @@ public class AngajatController {
 	
 	/*---delete an angajat by id---*/
 	@DELETE
-	@Path("/angajat/{id}")
+	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RequestStatus delete(@RequestBody int angajatID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
@@ -88,5 +89,23 @@ public class AngajatController {
 		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
 		return angajatDao.removeAngajat(angajatID);
 	}
+	
+	 @POST
+		@Path("/login")
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Angajat loginCheck(String json) {
+
+			JSONObject jsonObj;
+			try {
+				jsonObj = new JSONObject(json);
+				String email = jsonObj.getString("cristina.natea4@gmail.com");
+				String password = jsonObj.getString("Ausy");
+				return angajatDao.loginCheck(email, password);
+			} catch (Exception e) {
+				// TODO: handle exception
+				return null;
+			}
+		}
+
 	
 }
