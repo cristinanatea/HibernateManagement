@@ -11,6 +11,8 @@ public interface AngajatDAO {
 	public List<Angajat> listAngajati();
 	public Angajat getAngajatById(int angajatID);
 	public RequestStatus removeAngajat(int angajatID);
-	public Angajat logincheck(String email, String password);
+
+
+	}
 	
-}
+

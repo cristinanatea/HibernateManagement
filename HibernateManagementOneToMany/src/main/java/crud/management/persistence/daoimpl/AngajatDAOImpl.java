@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import crud.management.persistence.model.Angajat;
-
 import crud.management.persistence.dao.AngajatDAO;
 import crud.management.persistence.dao.RequestStatus;
 
@@ -22,12 +21,12 @@ public class AngajatDAOImpl implements AngajatDAO {
 		this.sessionFactory = sf;
 	}
 
-	public RequestStatus  addAngajat(Angajat angajat) {
+	public RequestStatus addAngajat(Angajat angajat) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(angajat);
 		logger.info("Person saved successfully, Person Details=" + angajat);
-		return  new  RequestStatus() ;
-			
+		return new RequestStatus();
+
 	}
 
 	public RequestStatus updateAngajat(Angajat angajat) {
@@ -42,7 +41,7 @@ public class AngajatDAOImpl implements AngajatDAO {
 	public List<Angajat> listAngajati() {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		
+
 		List<Angajat> angajatiList = session.createQuery("from Angajat").list();
 		for (Angajat angajat : angajatiList) {
 			logger.info("Person List::" + angajat);
@@ -66,7 +65,5 @@ public class AngajatDAOImpl implements AngajatDAO {
 		logger.info("Angajat deleted successfully, angajat details=" + angajat);
 		return new RequestStatus();
 	}
-	
-	public Angajat logincheck(String email, String password);
 
 }

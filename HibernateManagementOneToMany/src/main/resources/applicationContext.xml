@@ -14,7 +14,7 @@
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/Management_angajati" />
 		<property name="username" value="root" />
-		<property name="password" value="password" />
+		<property name="password" value="root" />
 	</bean>
 	
 	<!-- Hibernate 4 SessionFactory Bean definition -->
@@ -26,6 +26,7 @@
 				<value>crud.management.persistence.model.Angajat</value>
 				<value>crud.management.persistence.model.Manager</value>
 				<value>crud.management.persistence.model.Proiect</value>
+				<value>crud.management.persistence.model.Utilizator</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -44,6 +45,9 @@
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="proiectDAO" class="crud.management.persistence.daoimpl.ProiectDAOImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="utilizatorDAO" class="crud.management.persistence.daoimpl.UtilizatorDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 

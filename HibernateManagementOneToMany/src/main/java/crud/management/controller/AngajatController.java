@@ -90,22 +90,4 @@ public class AngajatController {
 		return angajatDao.removeAngajat(angajatID);
 	}
 	
-	 @POST
-		@Path("/login")
-		@Consumes(MediaType.APPLICATION_JSON)
-		public Angajat loginCheck(String json) {
-
-			JSONObject jsonObj;
-			try {
-				jsonObj = new JSONObject(json);
-				String email = jsonObj.getString("cristina.natea4@gmail.com");
-				String password = jsonObj.getString("Ausy");
-				return angajatDao.loginCheck(email, password);
-			} catch (Exception e) {
-				// TODO: handle exception
-				return null;
-			}
-		}
-
-	
 }

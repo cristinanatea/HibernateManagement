@@ -8,7 +8,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Management_angajati</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.password">root</property>
         <property name="show_sql">true</property>
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">10</property>
@@ -32,6 +32,7 @@
         <mapping class="crud.management.persistence.model.Angajat"/>
         <mapping class="crud.management.persistence.model.Manager"/>
         <mapping class="crud.management.persistence.model.Proiect"/>
+        <mapping class="crud.management.persistence.model.Utilizator"/>
     
     </session-factory>
 </hibernate-configuration>

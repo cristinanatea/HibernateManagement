@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import crud.management.persistence.model.Angajat;
 import crud.management.persistence.model.Manager;
 import crud.management.persistence.model.Proiect;
+import crud.management.persistence.model.Utilizator;
 import crud.management.persistence.util.HibernateUtil;
 
 public class AppMain {
@@ -38,20 +39,28 @@ public class AppMain {
                
         angajat.getManageri().add(manageri);
         
-        
 
         Proiect proiecte = new Proiect();
         proiecte.setCoordonatorID(1);
         proiecte.setDescriere("balbla");
         proiecte.setDataInceput("1988-07-07");
         proiecte.setDataSfarsit("2019-12-12");
+        
+        
+        Utilizator utilizatori = new Utilizator();
+        utilizatori.setUtilizatorID(1);
+        utilizatori.setUsername("cnatea");
+        utilizatori.setPassword("Ausy");
+        utilizatori.setEmail("cristina.natea4@gmail.com");
        
-               
+             
         angajat.getProiecte().add(proiecte);
 
         session.save(proiecte);
 
         session.save(manageri);
+        
+        session.save(utilizatori);
 
 	session.getTransaction().commit();
 	System.out.println("Done");
