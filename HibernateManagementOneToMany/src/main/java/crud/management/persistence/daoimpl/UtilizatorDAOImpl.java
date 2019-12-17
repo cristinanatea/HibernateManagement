@@ -1,10 +1,6 @@
 package crud.management.persistence.daoimpl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -12,9 +8,10 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import crud.management.persistence.model.Angajat;
+
 import crud.management.persistence.model.Utilizator;
-import crud.management.persistence.dao.AngajatDAO;
+import crud.management.commons.UtilizatorDTO;
+
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
 
@@ -76,17 +73,28 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		return new RequestStatus();
 	}
 
-	public Utilizator loginUtilizator(String email, String password) {
+	public UtilizatorDTO loginUtilizator(String email, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
-
-		List<Utilizator> utilizatoriList = session.createQuery("from Utilizator").list();
-		for (Utilizator utilizator : utilizatoriList) {
+         UtilizatorDTO userlogin = new UtilizatorDTO();
+		List<Utilizator> utilizatorList = session.createQuery("from Utilizator").list();
+		for (Utilizator utilizator : utilizatorList) {
 			
-			if (utilizator.getEmail().contentEquals(email) && utilizator.getPassword().contentEquals(password))
+			if (userlogin.getEmail().contentEquals(email) && userlogin.getPassword().contentEquals(password))
 			{
-				return utilizator;
+				return userlogin;
 			}
+		}
+		
+		return null;
+	}
+	public UtilizatorDTO signupUtilizator(String nume, String companyName, String phoneNumber, String password) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.beginTransaction();
+         UtilizatorDTO userlogin = new UtilizatorDTO();
+		List<Utilizator> utilizatorList = session.createQuery("from Utilizator").list();
+        
+		
 		}
 		
 		return null;

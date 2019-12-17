@@ -23,6 +23,8 @@ public class Utilizator implements Serializable {
 	private String username;
 	private String password;
 	private String email;
+	private String nume;
+	private String phoneNumber;
 
 	public Utilizator() {
 		super();
@@ -60,10 +62,26 @@ public class Utilizator implements Serializable {
 		this.email = email;
 	}
 
+	public String getNume() {
+		return nume;
+	}
+
+	public void setNume(String nume) {
+		this.nume = nume;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhonenumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "Utilizator [utilizatorID=" + utilizatorID + ", username=" + username + ", password=" + password
-				+ ", email=" + email + "]";
+				+ ", email=" + email + ", nume=" + nume + ", phonenumber=" + phoneNumber + "]";
 	}
 
 }
