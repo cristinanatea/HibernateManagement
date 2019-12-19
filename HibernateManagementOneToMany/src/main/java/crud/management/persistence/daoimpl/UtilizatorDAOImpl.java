@@ -1,6 +1,5 @@
 package crud.management.persistence.daoimpl;
 
-
 import java.util.List;
 
 import org.hibernate.Session;
@@ -8,9 +7,8 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import crud.management.persistence.model.Utilizator;
-import crud.management.commons.UtilizatorDTO;
+import crud.management.commons.UtilizatorDTOep;
 
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
@@ -73,31 +71,59 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		return new RequestStatus();
 	}
 
-	public UtilizatorDTO loginUtilizator(String email, String password) {
+
+	public UtilizatorDTOep loginUtilizator(String email, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
-         UtilizatorDTO userlogin = new UtilizatorDTO();
-		List<Utilizator> utilizatorList = session.createQuery("from Utilizator").list();
-		for (Utilizator utilizator : utilizatorList) {
-			
-			if (userlogin.getEmail().contentEquals(email) && userlogin.getPassword().contentEquals(password))
-			{
-				return userlogin;
+
+		List<Utilizator> utilizatoriList = session.createQuery("from Utilizator").list();
+		for (Utilizator utilizator : utilizatoriList) {
+
+			if (utilizator.getEmail().contentEquals(email) && utilizator.getPassword().contentEquals(password)) {
+				UtilizatorDTOep utiDTO = new UtilizatorDTOep();
+				utiDTO.setEmail(utilizator.getEmail());
+				return utiDTO;
 			}
 		}
-		
-		return null;
-	}
-	public UtilizatorDTO signupUtilizator(String nume, String companyName, String phoneNumber, String password) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.beginTransaction();
-         UtilizatorDTO userlogin = new UtilizatorDTO();
-		List<Utilizator> utilizatorList = session.createQuery("from Utilizator").list();
-        
-		
-		}
-		
 		return null;
 	}
 	
+	/*public UtilizatorDTO  signupUtilizator(String nume, String companyName, String phoneNumber, String password)
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		
+		String Nume = sessionObj.getNume();
+		 String email = sessionObj.getEmail();
+		 String userName = sessionObj.getUserName();
+		 String Password = sessionObj.getPassword();
+		 String phonenumber = sessionObj.getPhonenumber();
+		 
+		
+		 
+		 try
+		 {
+		 con = DBConnection.createConnection();
+		 String query = "insert into utilizatori(utilizatorID,nume,email,username,password, phoneNumber) values (?,?,?,?,?)"; //Insert user details into the table 'USERS'
+		 preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
+		 preparedStatement.setString(1, fullName);
+		 preparedStatement.setString(2, email);
+		 preparedStatement.setString(3, userName);
+		 preparedStatement.setString(4, password);
+		 
+		 int i= preparedStatement.executeUpdate();
+		 
+		 if (i!=0)  //Just to ensure data has been inserted into the database
+		 return "SUCCESS"; 
+		 }
+		 catch(SQLException e)
+		 {
+		 e.printStackTrace();
+		 }
+		 
+		 return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
+		 }
+		}
+	}*/
+
 }

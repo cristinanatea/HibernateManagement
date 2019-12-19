@@ -30,14 +30,14 @@ import crud.management.persistence.dao.RequestStatus;
 @RestController
 @Path("/users")
 public class AngajatController {
-
+	Resource r = new ClassPathResource("applicationContext.xml");
+	BeanFactory factory = new XmlBeanFactory(r);
 	/*---get all angajati---*/
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Angajat> listUsers() {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
+		
 
 		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
 

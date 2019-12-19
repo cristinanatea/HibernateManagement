@@ -1,68 +1,69 @@
 package crud.management;
 
+import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import crud.management.persistence.model.Angajat;
-import crud.management.persistence.model.Manager;
+import crud.management.businessimpl.UtilizatorManagerImpl;
+import crud.management.commons.ProiectDTO;
+import crud.management.commons.UtilizatorDTOE;
+import crud.management.persistence.dao.AngajatDAO;
+import crud.management.persistence.dao.ManagerDAO;
+import crud.management.persistence.dao.ProiectDAO;
+import crud.management.persistence.dao.UtilizatorDAO;
 import crud.management.persistence.model.Proiect;
 import crud.management.persistence.model.Utilizator;
 import crud.management.persistence.util.HibernateUtil;
 
 public class AppMain {
 
-	public static void main(String[] args) {
+	public static ProiectDTO main(String[] args) {
+
+		final ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AngajatDAO angajatDao = appContext.getBean(AngajatDAO.class);
+		ManagerDAO managerDao = appContext.getBean(ManagerDAO.class);
+		ProiectDAO proiectDao = appContext.getBean(ProiectDAO.class);
+		UtilizatorDAO utilizatorDao = appContext.getBean(UtilizatorDAO.class);
+
+		System.out.println("Hibernate one to many (XML Mapping)");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		public UtilizatorDTOE getUtilizatori(String username)
+		{
+			UtilizatorDTOE utilizatorDTO = new UtilizatorDTOE();
+			Utilizator utilizator1 = utilizatorDAO.getUtilizatorById();
+			utilizatorDTO.setEmail(utilizator1.getEmail());
+			return utilizatorDTO;
+		}
+		
+		 public ProiectDTO getProiecte(String descriere)
+		 {
+			 ProiectDTO proiectDTO = new ProiectDTO();
+			 Proiect proiect1 = proiectDAO.getProiectById();
+			 proiectDTO.setCoordonatorID(proiect1.getCoordonatorID());
+			 return proiectDTO;
+		 }
+		
+		 public ManagerDTO getManagers(String nume )
+		 {
+			 ManagerDTO managerDTO = new ManagerDTO();
+			 Manager manager1 = managerDAO.getManagerById();
+			 managerDTO.setNume( manager1.getNume());
+			 return managerDTO;
+		 }
+		
+
+		
+		System.out.println(utilizatorDao.loginUtilizator("cristina.natea4@gmail.com", "Ausy").toString());
 	
-        System.out.println("Hibernate one to many (XML Mapping)");
-	Session session = HibernateUtil.getSessionFactory().openSession();
-
-	session.beginTransaction();
-
-	    Angajat angajat = new Angajat();
-        angajat.setFunctieID(1);
-        angajat.setProiectID(1);
-        angajat.setDataAngajarii("1988-07-05");
-        angajat.setNorma("8");
-        angajat.setManagerID(1);
-        angajat.setNume("Ionescu");
-        angajat.setPrenume("Adriana");
-        angajat.setAdresa("Ferdinand");
-        angajat.setTelefon("0744609330");
-        angajat.setNrZileConcediuMedicalLuat(0);
-        angajat.setCnp("2889705345123");
-        session.save(angajat);
-        
-        Manager manageri = new Manager();
-        manageri.setNume(new String("Popescu"));
-        manageri.setDataAngajarii("1988-07-05");
-       
-               
-        angajat.getManageri().add(manageri);
-        
-
-        Proiect proiecte = new Proiect();
-        proiecte.setCoordonatorID(1);
-        proiecte.setDescriere("balbla");
-        proiecte.setDataInceput("1988-07-07");
-        proiecte.setDataSfarsit("2019-12-12");
-        
-        
-        Utilizator utilizatori = new Utilizator();
-        utilizatori.setUtilizatorID(1);
-        utilizatori.setUsername("cnatea");
-        utilizatori.setPassword("Ausy");
-        utilizatori.setEmail("cristina.natea4@gmail.com");
-       
-             
-        angajat.getProiecte().add(proiecte);
-
-        session.save(proiecte);
-
-        session.save(manageri);
-        
-        session.save(utilizatori);
-
-	session.getTransaction().commit();
-	System.out.println("Done");
+		UtilizatorManagerImpl us = new UtilizatorManagerImpl();
+		System.out.println(us.getUtilizatorById(1));
+		session.getTransaction().commit();
+		System.out.println("Done");
 	}
 }
+

@@ -1,9 +1,9 @@
 package crud.management.persistence.dao;
 
-import java.sql.SQLException;
+
 import java.util.List;
 
-import crud.management.commons.UtilizatorDTO;
+import crud.management.commons.UtilizatorDTOep;
 import crud.management.persistence.model.Utilizator;
 
 public interface UtilizatorDAO {
@@ -13,6 +13,6 @@ public interface UtilizatorDAO {
 	public List<Utilizator> listUtilizatori();
 	public Utilizator getUtilizatorById(int utilizatorID);
 	public RequestStatus removeUtilizator(int utilizatorID);
-	public UtilizatorDTO loginUtilizator(String email, String password) ;
-    public UtilizatorDTO  signupUtilizator(String nume, String companyName, String phoneNumber, String password);
+	public UtilizatorDTOep loginUtilizator(String email, String password);
+    /*public UtilizatorDTO  signupUtilizator(String nume, String companyName, String phoneNumber, String password);*/
 }

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import crud.management.commons.UtilizatorDTO;
+import crud.management.commons.UtilizatorDTOep;
 import crud.management.persistence.dao.AngajatDAO;
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
@@ -93,7 +93,7 @@ public class UtilizatorController {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)	
-	public UtilizatorDTO login(String json) {
+	public UtilizatorDTOep login(String json) {
 
 		JSONObject jsonObj;
 		System.out.println("am primit "+json);
@@ -106,7 +106,7 @@ public class UtilizatorController {
 			Resource r = new ClassPathResource("applicationContext.xml");
 			BeanFactory factory = new XmlBeanFactory(r);
 			UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
-			UtilizatorDTO u = utilizatorDao.loginUtilizator(email, password);
+			UtilizatorDTOep u = utilizatorDao.loginUtilizator(email, password);
 			System.out.println("am gasit  "+u);
 			return u;
 		} catch (Exception e) {

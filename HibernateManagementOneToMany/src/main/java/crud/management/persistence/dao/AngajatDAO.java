@@ -12,7 +12,6 @@ public interface AngajatDAO {
 	public Angajat getAngajatById(int angajatID);
 	public RequestStatus removeAngajat(int angajatID);
 
-
-	}
+}
 	
 
