@@ -2,14 +2,14 @@ package crud.management.persistence.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import crud.management.persistence.model.Utilizator;
-import crud.management.commons.UtilizatorDTOep;
-
+import crud.management.commons.LoginDTO;
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
 
@@ -72,7 +72,7 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	}
 
 
-	public UtilizatorDTOep loginUtilizator(String email, String password) {
+	public Utilizator loginUtilizator(String email, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
 
@@ -80,11 +80,28 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		for (Utilizator utilizator : utilizatoriList) {
 
 			if (utilizator.getEmail().contentEquals(email) && utilizator.getPassword().contentEquals(password)) {
-				UtilizatorDTOep utiDTO = new UtilizatorDTOep();
-				utiDTO.setEmail(utilizator.getEmail());
-				return utiDTO;
+				return utilizator;
 			}
 		}
+		return null;
+	}
+
+	public Utilizator getUser(LoginDTO info) {
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		session.beginTransaction();
+
+		Query query = (Query) session.createQuery("from Utilizator WHERE email = :email and password = :pass");
+
+		query.setParameter("email", info.getUsername());
+		query.setParameter("pass", info.getPassword());
+		
+		List<Utilizator> utilizatoriList = query.list();
+		
+		for (Utilizator utilizator : utilizatoriList) {
+				return utilizator;
+		}
+		
 		return null;
 	}
 	

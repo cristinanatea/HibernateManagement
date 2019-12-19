@@ -1,18 +1,16 @@
 package crud.management.business;
 
-import java.util.List;
-
-
-import crud.management.commons.UtilizatorDTOep;
-import crud.management.persistence.dao.RequestStatus;
-import crud.management.persistence.model.Utilizator;
+import crud.management.commons.LoginDTO;
+import crud.management.commons.UtilizatorDTO;
 
 public interface UtilizatorManager {
-	
+	/*
 	UtilizatorDTOep getUtilizatorById(int utilizatorID);
 	List<Utilizator> listUtilizatori();
 	public UtilizatorDTOep  addUtilizator(Utilizator utilizator);
 	public UtilizatorDTOep loginUtilizator(String email, String password);
 
+*/
 
+	public UtilizatorDTO getUserInfo(LoginDTO loginInfo);
 }

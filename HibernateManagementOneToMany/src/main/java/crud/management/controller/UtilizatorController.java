@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import crud.management.commons.UtilizatorDTOep;
+import crud.management.business.UtilizatorManager;
+import crud.management.commons.LoginDTO;
+import crud.management.commons.UtilizatorDTO;
 import crud.management.persistence.dao.AngajatDAO;
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
@@ -93,22 +95,25 @@ public class UtilizatorController {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)	
-	public UtilizatorDTOep login(String json) {
-
+	public UtilizatorDTO login(String json) {
 		JSONObject jsonObj;
 		System.out.println("am primit "+json);
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");
 			String password = jsonObj.getString("password");
-			System.out.println("emailul este "+email);
-			System.out.println("parola este "+password);
+			
+			LoginDTO loginInfo = new LoginDTO(email, password);
+			
+
 			Resource r = new ClassPathResource("applicationContext.xml");
 			BeanFactory factory = new XmlBeanFactory(r);
-			UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
-			UtilizatorDTOep u = utilizatorDao.loginUtilizator(email, password);
-			System.out.println("am gasit  "+u);
-			return u;
+			UtilizatorManager userManagement = (UtilizatorManager) factory.getBean("userManagement");
+			
+			UtilizatorDTO response = userManagement.getUserInfo(loginInfo);
+			System.out.println("am gasit  "+response);
+			
+			return response;			
 		} catch (Exception e) {
 			System.out.println("exceptie "+e);
 			return null;

@@ -27,6 +27,7 @@
 				<value>crud.management.persistence.model.Manager</value>
 				<value>crud.management.persistence.model.Proiect</value>
 				<value>crud.management.persistence.model.Utilizator</value>
+				<value>crud.management.business.UtilizatorManager</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -48,6 +49,9 @@
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="utilizatorDAO" class="crud.management.persistence.daoimpl.UtilizatorDAOImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="userManagement" class="crud.management.businessimpl.UtilizatorManagerImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 

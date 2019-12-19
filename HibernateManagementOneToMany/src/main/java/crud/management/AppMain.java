@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import crud.management.businessimpl.UtilizatorManagerImpl;
 import crud.management.commons.ProiectDTO;
-import crud.management.commons.UtilizatorDTOE;
+import crud.management.commons.UtilizatorDTO;
 import crud.management.persistence.dao.AngajatDAO;
 import crud.management.persistence.dao.ManagerDAO;
 import crud.management.persistence.dao.ProiectDAO;
@@ -18,8 +18,8 @@ import crud.management.persistence.model.Utilizator;
 import crud.management.persistence.util.HibernateUtil;
 
 public class AppMain {
-
-	public static ProiectDTO main(String[] args) {
+/*
+	public static void main(String[] args) {
 
 		final ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AngajatDAO angajatDao = appContext.getBean(AngajatDAO.class);
@@ -27,11 +27,20 @@ public class AppMain {
 		ProiectDAO proiectDao = appContext.getBean(ProiectDAO.class);
 		UtilizatorDAO utilizatorDao = appContext.getBean(UtilizatorDAO.class);
 
-		System.out.println("Hibernate one to many (XML Mapping)");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
 		
+		
+		System.out.println(utilizatorDao.loginUtilizator("cristina.natea4@gmail.com", "Ausy").toString());
+	
+		UtilizatorManagerImpl us = new UtilizatorManagerImpl();
+		System.out.println(us.getUtilizatorById(1));
+		session.getTransaction().commit();
+		System.out.println("Done");
+	}
+	*/
+	/*
 		public UtilizatorDTOE getUtilizatori(String username)
 		{
 			UtilizatorDTOE utilizatorDTO = new UtilizatorDTOE();
@@ -55,15 +64,7 @@ public class AppMain {
 			 managerDTO.setNume( manager1.getNume());
 			 return managerDTO;
 		 }
-		
+		*/
 
-		
-		System.out.println(utilizatorDao.loginUtilizator("cristina.natea4@gmail.com", "Ausy").toString());
-	
-		UtilizatorManagerImpl us = new UtilizatorManagerImpl();
-		System.out.println(us.getUtilizatorById(1));
-		session.getTransaction().commit();
-		System.out.println("Done");
-	}
 }
 

@@ -33,6 +33,7 @@
         <mapping class="crud.management.persistence.model.Manager"/>
         <mapping class="crud.management.persistence.model.Proiect"/>
         <mapping class="crud.management.persistence.model.Utilizator"/>
+        <mapping class="crud.management.business.UtilizatorManager"/>
     
     </session-factory>
 </hibernate-configuration>
