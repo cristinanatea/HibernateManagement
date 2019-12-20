@@ -1,12 +1,9 @@
 package crud.management.persistence.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +15,8 @@ public class Utilizator implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue
-	private int utilizatorID;
+	@GeneratedValue 
+
 	private String username;
 	private String password;
 	private String email;
@@ -30,13 +27,7 @@ public class Utilizator implements Serializable {
 		super();
 	}
 
-	public int getUtilizatorID() {
-		return utilizatorID;
-	}
 
-	public void setUtilizatorID(int utilizatorID) {
-		this.utilizatorID = utilizatorID;
-	}
 
 	public String getUsername() {
 		return username;
@@ -80,7 +71,7 @@ public class Utilizator implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Utilizator [utilizatorID=" + utilizatorID + ", username=" + username + ", password=" + password
+		return "Utilizator [  username=" + username + ", password=" + password
 				+ ", email=" + email + ", nume=" + nume + ", phonenumber=" + phoneNumber + "]";
 	}
 

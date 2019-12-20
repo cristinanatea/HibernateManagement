@@ -54,5 +54,8 @@
 	<bean id="userManagement" class="crud.management.businessimpl.UtilizatorManagerImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
+		<bean id="signManagement" class="crud.management.businessimpl.UtilizatorManagerImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
 
 </beans>

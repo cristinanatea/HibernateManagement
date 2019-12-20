@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import crud.management.business.UtilizatorManager;
 import crud.management.commons.LoginDTO;
+import crud.management.commons.SignUpDTO;
 import crud.management.commons.UtilizatorDTO;
 import crud.management.persistence.dao.AngajatDAO;
 import crud.management.persistence.dao.RequestStatus;
@@ -62,7 +63,7 @@ public class UtilizatorController {
 	@POST
 	@Path("/utilizator")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus save(@RequestBody Utilizator utilizator) {
+	public Utilizator save(@RequestBody Utilizator utilizator) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 		UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
@@ -94,31 +95,60 @@ public class UtilizatorController {
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)	
+	@Produces(MediaType.APPLICATION_JSON)
 	public UtilizatorDTO login(String json) {
 		JSONObject jsonObj;
-		System.out.println("am primit "+json);
+		System.out.println("am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");
 			String password = jsonObj.getString("password");
-			
+
 			LoginDTO loginInfo = new LoginDTO(email, password);
-			
 
 			Resource r = new ClassPathResource("applicationContext.xml");
 			BeanFactory factory = new XmlBeanFactory(r);
 			UtilizatorManager userManagement = (UtilizatorManager) factory.getBean("userManagement");
-			
+
 			UtilizatorDTO response = userManagement.getUserInfo(loginInfo);
-			System.out.println("am gasit  "+response);
-			
-			return response;			
+			System.out.println("am gasit  " + response);
+
+			return response;
 		} catch (Exception e) {
-			System.out.println("exceptie "+e);
+			System.out.println("exceptie " + e);
 			return null;
 		}
 	}
-	
+
+	@POST
+	@Path("/signup")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public UtilizatorDTO signup(String json) {
+		JSONObject jsonObj;
+		System.out.println("am primit " + json);
+		try {
+			jsonObj = new JSONObject(json);
+			String email = jsonObj.getString("email");
+			String password = jsonObj.getString("password");
+			String nume = jsonObj.getString("nume");
+			String phonenumber = jsonObj.getString("phonenumber");
+			String username = jsonObj.getString("username");
+
+			SignUpDTO SignUpinfo = new SignUpDTO( username, nume, phonenumber, email, password);
+
+			Resource r = new ClassPathResource("applicationContext.xml");
+			BeanFactory factory = new XmlBeanFactory(r);
+			UtilizatorManager signManagement = (UtilizatorManager) factory.getBean("signManagement");
+
+			UtilizatorDTO response = signManagement.addUtilizator(SignUpinfo);
+			System.out.println("am creat  " + response);
+
+			return response;
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return null;
+		}
+	}
 
 }

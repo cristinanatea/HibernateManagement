@@ -1,6 +1,7 @@
 package crud.management.business;
 
 import crud.management.commons.LoginDTO;
+import crud.management.commons.SignUpDTO;
 import crud.management.commons.UtilizatorDTO;
 
 public interface UtilizatorManager {
@@ -13,4 +14,5 @@ public interface UtilizatorManager {
 */
 
 	public UtilizatorDTO getUserInfo(LoginDTO loginInfo);
+	public UtilizatorDTO addUtilizator(SignUpDTO SignUpinfo);
 }

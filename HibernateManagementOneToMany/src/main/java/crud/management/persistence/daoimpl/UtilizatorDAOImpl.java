@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import crud.management.persistence.model.Utilizator;
 import crud.management.commons.LoginDTO;
+import crud.management.commons.SignUpDTO;
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
 
@@ -26,13 +27,12 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 
 	}
 
-	public RequestStatus addUtilizator(Utilizator utilizator) {
+	public Utilizator addUtilizator(Utilizator utilizator) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(utilizator);
-		logger.info("Person saved successfully, Person Details=" + utilizator);
-		return new RequestStatus();
-
-	}
+		session.saveOrUpdate(utilizator);
+		logger.info("Utilizator saved successfully, Utilizator Details=" + utilizator);
+		return new Utilizator();
+}
 
 	public RequestStatus updateUtilizator(Utilizator utilizator) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -104,43 +104,22 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		
 		return null;
 	}
-	
-	/*public UtilizatorDTO  signupUtilizator(String nume, String companyName, String phoneNumber, String password)
-	{
+
+	public Utilizator addUtilizator(SignUpDTO info) {
+		
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		
-		String Nume = sessionObj.getNume();
-		 String email = sessionObj.getEmail();
-		 String userName = sessionObj.getUserName();
-		 String Password = sessionObj.getPassword();
-		 String phonenumber = sessionObj.getPhonenumber();
-		 
-		
-		 
-		 try
-		 {
-		 con = DBConnection.createConnection();
-		 String query = "insert into utilizatori(utilizatorID,nume,email,username,password, phoneNumber) values (?,?,?,?,?)"; //Insert user details into the table 'USERS'
-		 preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
-		 preparedStatement.setString(1, fullName);
-		 preparedStatement.setString(2, email);
-		 preparedStatement.setString(3, userName);
-		 preparedStatement.setString(4, password);
-		 
-		 int i= preparedStatement.executeUpdate();
-		 
-		 if (i!=0)  //Just to ensure data has been inserted into the database
-		 return "SUCCESS"; 
-		 }
-		 catch(SQLException e)
-		 {
-		 e.printStackTrace();
-		 }
-		 
-		 return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
-		 }
-		}
-	}*/
+	
+	      Utilizator uti = new Utilizator();
+	      uti.setEmail(info.getEmail());
+	      uti.setPassword(info.getPassword());
+	      uti.setNume(info.getNume());
+	      uti.setUsername(info.getUsername());
+	      uti.setPhonenumber(info.getPhonenumber());
+	    
+	      
 
+	      return addUtilizator(uti);
+	}
 }
+
