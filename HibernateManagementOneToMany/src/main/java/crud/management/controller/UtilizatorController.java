@@ -135,7 +135,7 @@ public class UtilizatorController {
 			String phonenumber = jsonObj.getString("phonenumber");
 			String username = jsonObj.getString("username");
 
-			SignUpDTO SignUpinfo = new SignUpDTO( username, nume, phonenumber, email, password);
+			SignUpDTO SignUpinfo = new SignUpDTO(nume,phonenumber, username, password, email);
 
 			Resource r = new ClassPathResource("applicationContext.xml");
 			BeanFactory factory = new XmlBeanFactory(r);

@@ -25,8 +25,8 @@ public class UtilizatorDTO implements Serializable {
 		return nume;
 	}
 
-	public void setNume(String email) {
-		this.nume = email;
+	public void setNume(String nume) {
+		this.nume = nume;
 	}
 
 	@Override

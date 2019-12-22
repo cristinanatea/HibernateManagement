@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,11 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 
 	public Utilizator addUtilizator(Utilizator utilizator) {
 		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx1 = session.beginTransaction();
 		session.saveOrUpdate(utilizator);
+		tx1.commit();
 		logger.info("Utilizator saved successfully, Utilizator Details=" + utilizator);
-		return new Utilizator();
+		return  utilizator;
 }
 
 	public RequestStatus updateUtilizator(Utilizator utilizator) {
@@ -107,8 +110,6 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 
 	public Utilizator addUtilizator(SignUpDTO info) {
 		
-		Session session = this.sessionFactory.getCurrentSession();
-		session.beginTransaction();
 	
 	      Utilizator uti = new Utilizator();
 	      uti.setEmail(info.getEmail());

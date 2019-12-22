@@ -15,7 +15,7 @@ public interface UtilizatorDAO {
 	public Utilizator getUtilizatorById(int utilizatorID);
 	public RequestStatus removeUtilizator(int utilizatorID);
 	public Utilizator loginUtilizator(String email, String password);
-	
 	public Utilizator getUser(LoginDTO info);
     public Utilizator addUtilizator(SignUpDTO info);
+
 }

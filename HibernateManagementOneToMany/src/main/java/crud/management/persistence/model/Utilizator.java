@@ -16,7 +16,7 @@ public class Utilizator implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue 
-
+    private int utilizatorID;
 	private String username;
 	private String password;
 	private String email;
