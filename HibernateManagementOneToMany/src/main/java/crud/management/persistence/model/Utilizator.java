@@ -75,4 +75,7 @@ public class Utilizator implements Serializable {
 				+ ", email=" + email + ", nume=" + nume + ", phonenumber=" + phoneNumber + "]";
 	}
 
+
+
+	
 }

@@ -8,10 +8,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import crud.management.persistence.model.Utilizator;
 import crud.management.commons.LoginDTO;
 import crud.management.commons.SignUpDTO;
+import crud.management.commons.UtilizatorDTO;
+import crud.management.commons.createTeamsDTO;
 import crud.management.persistence.dao.RequestStatus;
 import crud.management.persistence.dao.UtilizatorDAO;
 
@@ -34,8 +40,8 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		session.saveOrUpdate(utilizator);
 		tx1.commit();
 		logger.info("Utilizator saved successfully, Utilizator Details=" + utilizator);
-		return  utilizator;
-}
+		return utilizator;
+	}
 
 	public RequestStatus updateUtilizator(Utilizator utilizator) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -74,7 +80,6 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		return new RequestStatus();
 	}
 
-
 	public Utilizator loginUtilizator(String email, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
@@ -90,37 +95,72 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	}
 
 	public Utilizator getUser(LoginDTO info) {
-		
+
 		Session session = this.sessionFactory.getCurrentSession();
 		session.beginTransaction();
 
-		Query query = (Query) session.createQuery("from Utilizator WHERE email = :email and password = :pass");
+		Query query = (Query) session.createQuery("from Utilizator where email = :email and password = :pass");
 
 		query.setParameter("email", info.getUsername());
 		query.setParameter("pass", info.getPassword());
-		
+
 		List<Utilizator> utilizatoriList = query.list();
-		
+
 		for (Utilizator utilizator : utilizatoriList) {
-				return utilizator;
+			return utilizator;
 		}
-		
+
 		return null;
 	}
 
-	public Utilizator addUtilizator(SignUpDTO info) {
-		
-	
-	      Utilizator uti = new Utilizator();
-	      uti.setEmail(info.getEmail());
-	      uti.setPassword(info.getPassword());
-	      uti.setNume(info.getNume());
-	      uti.setUsername(info.getUsername());
-	      uti.setPhonenumber(info.getPhonenumber());
-	    
-	      
+	public Utilizator getUserByEmail(String email) {
 
-	      return addUtilizator(uti);
+		Session session = this.sessionFactory.getCurrentSession();
+		session.beginTransaction();
+
+		Query query = (Query) session.createQuery("from Utilizator WHERE email = :email ");
+
+		List<Utilizator> utilizatoriList = query.list();
+
+		for (Utilizator utilizator : utilizatoriList) {
+			return utilizator;
+		}
+
+		return null;
 	}
-}
 
+	public boolean isDuplicateEntry(String email) {
+
+		Resource r = new ClassPathResource("applicationContext.xml");
+		BeanFactory factory = new XmlBeanFactory(r);
+		UtilizatorDAO userDAO = (UtilizatorDAO) factory.getBean("utilizatorDAO");
+
+		Utilizator uti = userDAO.getUserByEmail(email);
+
+		if (uti != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Utilizator addUtilizator(SignUpDTO info) {
+
+		Utilizator uti = new Utilizator();
+		uti.setEmail(info.getEmail());
+		uti.setPassword(info.getPassword());
+		uti.setNume(info.getNume());
+		uti.setUsername(info.getUsername());
+		uti.setPhonenumber(info.getPhonenumber());
+
+		return addUtilizator(uti);
+	}
+	
+	public Utilizator createTeamsDTO(createTeamsDTO info)
+	{
+		int teamID;
+		 String teamName = UserInput.readString();
+		  int team = new Team(teamName);
+			
+    }
+}

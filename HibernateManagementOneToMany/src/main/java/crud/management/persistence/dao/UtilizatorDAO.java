@@ -5,6 +5,7 @@ import java.util.List;
 
 import crud.management.commons.LoginDTO;
 import crud.management.commons.SignUpDTO;
+import crud.management.commons.CreateTeamsDTO;
 import crud.management.persistence.model.Utilizator;
 
 public interface UtilizatorDAO {
@@ -17,5 +18,8 @@ public interface UtilizatorDAO {
 	public Utilizator loginUtilizator(String email, String password);
 	public Utilizator getUser(LoginDTO info);
     public Utilizator addUtilizator(SignUpDTO info);
+    public Utilizator getUserByEmail(String email);
+    public boolean isDuplicateEntry(String email);
+    public Utilizator CreateTeamsDTO(int utilizatorID);
 
 }
