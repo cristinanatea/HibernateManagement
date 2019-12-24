@@ -2,52 +2,53 @@ package crud.management.commons;
 import java.io.Serializable;
 
 
-public class ProiectDTO implements Serializable {
+public class ProjectDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	 private int proiectID;
-	 private int coordonatorID;
-	 private String descriere;
-	 private String dataInceput;
-	 private String dataSfarsit;
+	 private int projectID;
+	 private int managerID;
+	 private String description;
+	 private String startDate;
+	 private String endDate;
 	 
-
-	public int getProiectByID() {
-		return proiectID;
+	public int getProjectID() {
+		return projectID;
 	}
-	public void setProiectByID(int proiectID) {
-		this.proiectID = proiectID;
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
 	}
-	public int getCoordonatorID() {
-		return coordonatorID;
+	public int getManagerID() {
+		return managerID;
 	}
-	public void setCoordonatorID(int coordonatorID) {
-		this.coordonatorID = coordonatorID;
+	public void setManagerID(int managerID) {
+		this.managerID = managerID;
 	}
-	public String getDescriere() {
-		return descriere;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescriere(String descriere) {
-		this.descriere = descriere;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getDataInceput() {
-		return dataInceput;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setDataInceput(String dataInceput) {
-		this.dataInceput = dataInceput;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
-	public String getDataSfarsit() {
-		return dataSfarsit;
+	public String getEndDate() {
+		return endDate;
 	}
-	public void setDataSfarsit(String dataSfarsit) {
-		this.dataSfarsit = dataSfarsit;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	@Override
 	public String toString() {
-		return "ProiectDTO [proiectID=" + proiectID + ", coordonatorID=" + coordonatorID + ", descriere=" + descriere
-				+ ", dataInceput=" + dataInceput + ", dataSfarsit=" + dataSfarsit + "]";
+		return "ProiectDTO [projectID=" + projectID + ", managerID=" + managerID + ", description=" + description
+				+ ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
-	 	 
+	 
+   
+	
 	
 }

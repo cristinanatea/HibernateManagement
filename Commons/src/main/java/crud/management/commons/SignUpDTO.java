@@ -4,15 +4,15 @@ public class SignUpDTO {
 
 	private String username;
 	private String password;
-	private String nume;
-	private String phonenumber;
+	private String name;
+	private String phoneNumber;
 	private String email;
 
-	public SignUpDTO( String nume, String phonenumber, String username, String password,String email) {
+	public SignUpDTO( String name, String phoneNumber, String username, String password,String email) {
 		this.username = username;
 		this.password = password;
-		this.nume = nume;
-		this.phonenumber = phonenumber;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
 
@@ -32,20 +32,20 @@ public class SignUpDTO {
 		this.password = password;
 	}
 
-	public String getNume() {
-		return nume;
+	public String getName() {
+		return name;
 	}
 
-	public void setNume(String nume) {
-		this.nume = nume;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPhonenumber() {
-		return phonenumber;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getEmail() {
@@ -58,7 +58,7 @@ public class SignUpDTO {
 
 	@Override
 	public String toString() {
-		return "SignUpDTO [username=" + username + ", password=" + password + ", nume=" + nume + ", phonenumber=" + phonenumber + ", email=" + email + "]";
+		return "SignUpDTO [username=" + username + ", password=" + password + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
 	}
 
 }

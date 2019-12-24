@@ -2,61 +2,59 @@ package crud.management.commons;
 
 import java.io.Serializable;
 
-
-public class AngajatDTO implements Serializable {
+public class EmployeeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int angajatID;
-	private int functieID;
-	private int proiectID;
-	private String dataAngajarii;
-	private String norma;
+	private int employeeID;
+	private int positionID;
+	private int projectID;
+	private String employmentDate;
+	private String workingHours;
 	private int managerID;
-	private String nume;
-	private String prenume;
-	private String adresa;
-	private String telefon;
-	private int nrZileConcediuMedicalLuat;
-	private String cnp;
-	
+	private String name;
+	private String forname;
+	private String adress;
+	private String telephone;
+	private int nrDaysOfMedicalLeaveTaken;
+	private String personalNumber;
 
-	public int getAngajatID() {
-		return angajatID;
+	public int getEmployeeID() {
+		return employeeID;
 	}
 
-	public void setAngajatID(int angajatID) {
-		this.angajatID = angajatID;
+	public void setEmployeeID(int employeeID) {
+		this.employeeID = employeeID;
 	}
 
-	public int getFunctieID() {
-		return functieID;
+	public int getPositionID() {
+		return positionID;
 	}
 
-	public void setFunctieID(int functieID) {
-		this.functieID = functieID;
+	public void setPositionID(int positionID) {
+		this.positionID = positionID;
 	}
 
-	public int getProiectID() {
-		return proiectID;
+	public int getProjectID() {
+		return projectID;
 	}
 
-	public void setProiectID(int proiectID) {
-		this.proiectID = proiectID;
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
 	}
 
-	public String getDataAngajarii() {
-		return dataAngajarii;
+	public String getEmploymentDate() {
+		return employmentDate;
 	}
 
-	public void setDataAngajarii(String dataAngajarii) {
-		this.dataAngajarii = dataAngajarii;
+	public void setEmploymentDate(String employmentDate) {
+		this.employmentDate = employmentDate;
 	}
 
-	public String getNorma() {
-		return norma;
+	public String getWorkingHours() {
+		return workingHours;
 	}
 
-	public void setNorma(String norma) {
-		this.norma = norma;
+	public void setWorkingHours(String workingHours) {
+		this.workingHours = workingHours;
 	}
 
 	public int getManagerID() {
@@ -67,62 +65,61 @@ public class AngajatDTO implements Serializable {
 		this.managerID = managerID;
 	}
 
-	public String getNume() {
-		return nume;
+	public String getName() {
+		return name;
 	}
 
-	public void setNume(String nume) {
-		this.nume = nume;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPrenume() {
-		return prenume;
+	public String getForname() {
+		return forname;
 	}
 
-	public void setPrenume(String prenume) {
-		this.prenume = prenume;
+	public void setForname(String forname) {
+		this.forname = forname;
 	}
 
-	public String getAdresa() {
-		return adresa;
+	public String getAdress() {
+		return adress;
 	}
 
-	public void setAdresa(String adresa) {
-		this.adresa = adresa;
+	public void setAdress(String adress) {
+		this.adress = adress;
 	}
 
-	public String getTelefon() {
-		return telefon;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setTelefon(String telefon) {
-		this.telefon = telefon;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
-	public int getNrZileConcediuMedicalLuat() {
-		return nrZileConcediuMedicalLuat;
+	public int getNrDaysOfMedicalLeaveTaken() {
+		return nrDaysOfMedicalLeaveTaken;
 	}
 
-	public void setNrZileConcediuMedicalLuat(int nrZileConcediuMedicalLuat) {
-		this.nrZileConcediuMedicalLuat = nrZileConcediuMedicalLuat;
+	public void setNrDaysOfMedicalLeaveTaken(int nrDaysOfMedicalLeaveTaken) {
+		this.nrDaysOfMedicalLeaveTaken = nrDaysOfMedicalLeaveTaken;
 	}
 
-	public String getCnp() {
-		return cnp;
+	public String getPersonalNumber() {
+		return personalNumber;
 	}
 
-	public void setCnp(String cnp) {
-		this.cnp = cnp;
+	public void setPersonalNumber(String personalNumber) {
+		this.personalNumber = personalNumber;
 	}
 
 	@Override
 	public String toString() {
-		return "AngajatDTO [angajatID=" + angajatID + ", functieID=" + functieID + ", proiectID=" + proiectID
-				+ ", dataAngajarii=" + dataAngajarii + ", norma=" + norma + ", managerID=" + managerID + ", nume="
-				+ nume + ", prenume=" + prenume + ", adresa=" + adresa + ", telefon=" + telefon
-				+ ", nrZileConcediuMedicalLuat=" + nrZileConcediuMedicalLuat + ", cnp=" + cnp + "]";
+		return "AngajatDTO [employeeID=" + employeeID + ", positionID=" + positionID + ", projectID=" + projectID
+				+ ", employmentDate=" + employmentDate + ", workingHours=" + workingHours + ", managerID=" + managerID
+				+ ", name=" + name + ", forname=" + forname + ", adress=" + adress + ", telephone=" + telephone
+				+ ", nrDaysOfMedicalLeaveTaken=" + nrDaysOfMedicalLeaveTaken + ", personalNumber=" + personalNumber
+				+ "]";
 	}
-	
-	
 
 }

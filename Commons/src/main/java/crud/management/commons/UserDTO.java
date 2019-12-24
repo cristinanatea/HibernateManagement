@@ -2,15 +2,15 @@ package crud.management.commons;
 
 import java.io.Serializable;
 
-public class UtilizatorDTO implements Serializable {
+public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String email;
-	private String nume;
+	private String name;
 
-	public UtilizatorDTO(String email, String nume) {
+	public UserDTO(String email, String name) {
 		this.email = email;
-		this.nume = nume;
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -22,15 +22,15 @@ public class UtilizatorDTO implements Serializable {
 	}
 
 	public String getNume() {
-		return nume;
+		return name;
 	}
 
-	public void setNume(String nume) {
-		this.nume = nume;
+	public void setNume(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "UtilizatorDTO [email=" + email + ", nume=" + nume + "]";
+		return "UtilizatorDTO [email=" + email + ", name=" + name + "]";
 	}
 }
