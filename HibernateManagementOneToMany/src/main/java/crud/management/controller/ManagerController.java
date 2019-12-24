@@ -40,7 +40,7 @@ public class ManagerController {
 
 		ManagerDAO managerDao = (ManagerDAO) factory.getBean("managerDAO");
 
-		return managerDao.listManageri();
+		return managerDao.listManagers();
 	}
 
 	/*---get a manager by ID---*/

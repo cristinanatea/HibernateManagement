@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jettison.json.JSONObject;
 import org.hibernate.Session;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,71 +22,72 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import crud.management.persistence.model.Proiect;
-import crud.management.persistence.dao.ProiectDAO;
+import crud.management.persistence.model.Employee;
+import crud.management.persistence.util.HibernateUtil;
+import crud.management.persistence.dao.EmployeeDAO;
 import crud.management.persistence.dao.RequestStatus;
 
 @RestController
-@Path("/proiect")
-public class ProiectController {
-
-	/*---get all projects---*/
+@Path("/users")
+public class EmployeeController {
+	Resource r = new ClassPathResource("applicationContext.xml");
+	BeanFactory factory = new XmlBeanFactory(r);
+	/*---get all Employees---*/
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Proiect> listUsers() {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
+	public List<Employee> listUsers() {
+		
 
-		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
+		EmployeeDAO EmployeeDao = (EmployeeDAO) factory.getBean("EmployeeDAO");
 
-		return proiectDao.listProiecte();
+		return EmployeeDao.listEmployees();
 	}
 
-	/*---get a project by ID---*/
+	/*---get a book by ID---*/
 	@GET
-	@Path("/proiect/{id}")
+	@Path("/Employee/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Proiect get(@PathVariable("id") int proiectID) {
+	public Employee get(@PathVariable("id") int EmployeeID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 
-		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
+		EmployeeDAO EmployeeDao = (EmployeeDAO) factory.getBean("EmployeeDAO");
 
-		return proiectDao.getProiectById(proiectID);
+		return EmployeeDao.getEmployeeById(EmployeeID);
 	}
 
-	/*---add a new project---*/
+	/*---add a new Employee---*/
 	@POST
-	@Path("/proiect")
+	@Path("/Employee")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus save(@RequestBody Proiect proiect) {
+	public RequestStatus save(@RequestBody Employee Employee) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
-		return proiectDao.addProiect(proiect);
+		EmployeeDAO EmployeeDao = (EmployeeDAO) factory.getBean("EmployeeDAO");
+		return EmployeeDao.addEmployee(Employee);
 	}
 
-	/*---update an project by id---*/
+	/*---update an Employee by id---*/
 	@PUT
 	@Path("/update/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus update(@RequestBody Proiect proiect) {
+	public RequestStatus update(@RequestBody Employee Employee) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
-		return proiectDao.updateProiect(proiect);
+		EmployeeDAO EmployeeDao = (EmployeeDAO) factory.getBean("EmployeeDAO");
+		return EmployeeDao.updateEmployee(Employee);
 	}
-
-	/*---delete an project by id---*/
+	
+	/*---delete an Employee by id---*/
 	@DELETE
 	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus delete(@RequestBody int proiectID) {
+	public RequestStatus delete(@RequestBody int EmployeeID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		ProiectDAO proiectDao = (ProiectDAO) factory.getBean("proiectDAO");
-		return proiectDao.removeProiect(proiectID);
+		EmployeeDAO EmployeeDao = (EmployeeDAO) factory.getBean("EmployeeDAO");
+		return EmployeeDao.removeEmployee(EmployeeID);
 	}
-
+	
 }

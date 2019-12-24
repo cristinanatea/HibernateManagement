@@ -29,11 +29,11 @@
         <property name="hbm2ddl.auto">create</property>
 
         <!-- Mention here all the model classes -->
-        <mapping class="crud.management.persistence.model.Angajat"/>
+        <mapping class="crud.management.persistence.model.Employee"/>
         <mapping class="crud.management.persistence.model.Manager"/>
-        <mapping class="crud.management.persistence.model.Proiect"/>
-        <mapping class="crud.management.persistence.model.Utilizator"/>
-        <mapping class="crud.management.business.UtilizatorManager"/>
+        <mapping class="crud.management.persistence.model.Project"/>
+        <mapping class="crud.management.persistence.model.User"/>
+        <mapping class="crud.management.business.UserManager"/>
     
     </session-factory>
 </hibernate-configuration>

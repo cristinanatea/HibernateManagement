@@ -23,11 +23,12 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>crud.management.persistence.model.Angajat</value>
+				<value>crud.management.persistence.model.Employee</value>
 				<value>crud.management.persistence.model.Manager</value>
-				<value>crud.management.persistence.model.Proiect</value>
-				<value>crud.management.persistence.model.Utilizator</value>
+				<value>crud.management.persistence.model.Project</value>
+				<value>crud.management.persistence.model.User</value>
 				<value>crud.management.business.UtilizatorManager</value>
+				<value>crud.management.persistence.model.Team</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -39,23 +40,27 @@
 		</property>
 	</bean>	
 	
-	<bean id="angajatDAO" class="crud.management.persistence.daoimpl.AngajatDAOImpl">
+	<bean id="angajatDAO" class="crud.management.persistence.daoimpl.EmployeeDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="managerDAO" class="crud.management.persistence.daoimpl.ManagerDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-	<bean id="proiectDAO" class="crud.management.persistence.daoimpl.ProiectDAOImpl">
+	<bean id="proiectDAO" class="crud.management.persistence.daoimpl.ProjectDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-	<bean id="utilizatorDAO" class="crud.management.persistence.daoimpl.UtilizatorDAOImpl">
+	<bean id="utilizatorDAO" class="crud.management.persistence.daoimpl.UserDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-	<bean id="userManagement" class="crud.management.businessimpl.UtilizatorManagerImpl">
+	<bean id="userManagement" class="crud.management.businessimpl.UserManagerImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-		<bean id="signManagement" class="crud.management.businessimpl.UtilizatorManagerImpl">
+		<bean id="signManagement" class="crud.management.businessimpl.UserManagerImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
+		<bean id="signCreate" class="crud.management.businessimpl.UserManagerImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	
 
 </beans>

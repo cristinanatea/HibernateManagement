@@ -1,21 +1,6 @@
 package crud.management;
 
-import java.util.List;
 
-import org.hibernate.Session;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import crud.management.businessimpl.UtilizatorManagerImpl;
-import crud.management.commons.ProiectDTO;
-import crud.management.commons.UtilizatorDTO;
-import crud.management.persistence.dao.AngajatDAO;
-import crud.management.persistence.dao.ManagerDAO;
-import crud.management.persistence.dao.ProiectDAO;
-import crud.management.persistence.dao.UtilizatorDAO;
-import crud.management.persistence.model.Proiect;
-import crud.management.persistence.model.Utilizator;
-import crud.management.persistence.util.HibernateUtil;
 
 public class AppMain {
 /*

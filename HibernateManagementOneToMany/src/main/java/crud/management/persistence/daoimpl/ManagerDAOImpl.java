@@ -40,7 +40,7 @@ public class ManagerDAOImpl implements ManagerDAO {
 
 	@SuppressWarnings("unchecked")
 	
-	public List<Manager> listManageri() {
+	public List<Manager> listManagers() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Manager> manageriList = session.createQuery("from Manager").list();
 		for(Manager manager : manageriList){
@@ -67,5 +67,8 @@ public class ManagerDAOImpl implements ManagerDAO {
 		logger.info("Angajat deleted successfully, angajat details="+manager);
 		return  new  RequestStatus() ;
 	}
+
+
+	
 
 }

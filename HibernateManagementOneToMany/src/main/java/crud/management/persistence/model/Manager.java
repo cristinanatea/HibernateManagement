@@ -17,8 +17,8 @@ public class Manager implements Serializable {
 @Id
  @GeneratedValue
  private int managerID;
- private String nume;
- private String dataAngajarii;
+ private String name;
+ private String employmentDate;
  
  /*
  @JoinColumn(name = "managerID", referencedColumnName = "managerID")
@@ -39,25 +39,25 @@ public void setManagerID(int managerID) {
 	this.managerID = managerID;
 }
 
-public String getNume() {
-	return nume;
+public String getName() {
+	return name;
 }
 
-public void setNume(String nume) {
-	this.nume = nume;
+public void setName(String name) {
+	this.name = name;
 }
 
-public String getDataAngajarii() {
-	return dataAngajarii;
+public String getEmploymentDate() {
+	return employmentDate;
 }
 
-public void setDataAngajarii(String dataAngajarii) {
-	this.dataAngajarii = dataAngajarii;
+public void setEmploymentDate(String employmentDate) {
+	this.employmentDate = employmentDate;
 }
 
 @Override
 public String toString() {
-	return "Manager [managerID=" + managerID + ", nume=" + nume + ", dataAngajarii=" + dataAngajarii + "]";
+	return "Manager [managerID=" + managerID + ", name=" + name + ", employmentDate=" + employmentDate + "]";
 }
 
 

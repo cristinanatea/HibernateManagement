@@ -15,19 +15,19 @@ public class ManagerManagerImpl implements ManagerManager {
 	@Override
 	public ManagerDTO getManagerById(int managerID) {
 		Manager manager = managerDao.getManagerById(managerID);
-		managerDTO.setNume(manager.getNume());
+		managerDTO.setName(manager.getName());
 		return managerDTO;
 	}
 
 	@Override
 	public List<Manager> listManageri() {
 		
-		return managerDao.listManageri();
+		return managerDao.listManagers();
 	}
 
 	@Override
 	public ManagerDTO addManager(Manager manager) {
-		managerDTO.setNume(manager.getNume());
+		managerDTO.setName(manager.getName());
 		return managerDTO;
 	}
 }

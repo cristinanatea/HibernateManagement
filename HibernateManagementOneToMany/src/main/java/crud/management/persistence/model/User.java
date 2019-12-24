@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "utilizator")
-public class Utilizator implements Serializable {
+@Table(name = "user")
+public class User implements Serializable {
 
 	/**
 	 * 
@@ -16,18 +16,24 @@ public class Utilizator implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue 
-    private int utilizatorID;
+    private int userID;
 	private String username;
 	private String password;
 	private String email;
-	private String nume;
+	private String name;
 	private String phoneNumber;
 
-	public Utilizator() {
+	public User() {
 		super();
 	}
 
+	public int getUserID() {
+		return userID;
+	}
 
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 
 	public String getUsername() {
 		return username;
@@ -53,29 +59,27 @@ public class Utilizator implements Serializable {
 		this.email = email;
 	}
 
-	public String getNume() {
-		return nume;
+	public String getName() {
+		return name;
 	}
 
-	public void setNume(String nume) {
-		this.nume = nume;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhonenumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	@Override
 	public String toString() {
-		return "Utilizator [  username=" + username + ", password=" + password
-				+ ", email=" + email + ", nume=" + nume + ", phonenumber=" + phoneNumber + "]";
+		return "User [userID=" + userID + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", name=" + name + ", phoneNumber=" + phoneNumber + "]";
 	}
-
-
 
 	
 }

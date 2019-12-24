@@ -9,7 +9,7 @@ public interface ManagerDAO {
 
 	public RequestStatus addManager(Manager manager);
 	public RequestStatus updateManager(Manager manager);
-	public List<Manager> listManageri();
+	public List<Manager> listManagers();
 	public Manager getManagerById(int managerID);
 	public RequestStatus removeManager(int managerID);
 }

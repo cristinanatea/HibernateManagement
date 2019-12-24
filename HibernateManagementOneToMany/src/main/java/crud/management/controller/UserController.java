@@ -20,83 +20,84 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import crud.management.business.UtilizatorManager;
+import crud.management.business.UserManager;
+import crud.management.commons.CreateTeamsDTO;
 import crud.management.commons.LoginDTO;
 import crud.management.commons.SignUpDTO;
-import crud.management.commons.UtilizatorDTO;
-import crud.management.persistence.dao.AngajatDAO;
+import crud.management.commons.UserDTO;
+import crud.management.persistence.dao.EmployeeDAO;
 import crud.management.persistence.dao.RequestStatus;
-import crud.management.persistence.dao.UtilizatorDAO;
-import crud.management.persistence.model.Angajat;
-import crud.management.persistence.model.Utilizator;
+import crud.management.persistence.dao.UserDAO;
+import crud.management.persistence.model.Employee;
+import crud.management.persistence.model.User;
 
 @RestController
-@Path("/utilizator")
-public class UtilizatorController {
-	/*---get all utilizatori---*/
+@Path("/User")
+public class UserController {
+	/*---get all Users---*/
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Utilizator> listUtilizatori() {
+	public List<User> listUsers() {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 
-		UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
+		UserDAO UserDao = (UserDAO) factory.getBean("UserDAO");
 
-		return utilizatorDao.listUtilizatori();
+		return UserDao.listUsers();
 	}
 
-	/*---get a utilizator by ID---*/
+	/*---get a User by ID---*/
 	@GET
-	@Path("/utilizator/{id}")
+	@Path("/User/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Utilizator get(@PathVariable("id") int utilizatorID) {
+	public User get(@PathVariable("id") int UserID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 
-		UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
+		UserDAO UserDao = (UserDAO) factory.getBean("UserDAO");
 
-		return utilizatorDao.getUtilizatorById(utilizatorID);
+		return UserDao.getUserById(UserID);
 	}
 
-	/*---add a new utilizator---*/
+	/*---add a new User---*/
 	@POST
-	@Path("/utilizator")
+	@Path("/User")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Utilizator save(@RequestBody Utilizator utilizator) {
+	public User save(@RequestBody User User) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
-		return utilizatorDao.addUtilizator(utilizator);
+		UserDAO UserDao = (UserDAO) factory.getBean("UserDAO");
+		return UserDao.addUser(User);
 	}
 
-	/*---update an utilizator by id---*/
+	/*---update an User by id---*/
 	@PUT
 	@Path("/update/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus update(@RequestBody Utilizator utilizator) {
+	public RequestStatus update(@RequestBody User User) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
-		return utilizatorDao.updateUtilizator(utilizator);
+		UserDAO UserDao = (UserDAO) factory.getBean("UserDAO");
+		return UserDao.updateUser(User);
 	}
 
-	/*---delete an utilizator by id---*/
+	/*---delete an User by id---*/
 	@DELETE
 	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus delete(@RequestBody int utilizatorID) {
+	public RequestStatus delete(@RequestBody int UsersD) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		UtilizatorDAO utilizatorDao = (UtilizatorDAO) factory.getBean("utilizatorDAO");
-		return utilizatorDao.removeUtilizator(utilizatorID);
+		UserDAO UserDao = (UserDAO) factory.getBean("UserDAO");
+		return UserDao.removeUser(UsersD);
 	}
 
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UtilizatorDTO login(String json) {
+	public UserDTO login(String json) {
 		JSONObject jsonObj;
 		System.out.println("am primit " + json);
 		try {
@@ -108,9 +109,9 @@ public class UtilizatorController {
 
 			Resource r = new ClassPathResource("applicationContext.xml");
 			BeanFactory factory = new XmlBeanFactory(r);
-			UtilizatorManager userManagement = (UtilizatorManager) factory.getBean("userManagement");
+			UserManager userManagement = (UserManager) factory.getBean("userManagement");
 
-			UtilizatorDTO response = userManagement.getUserInfo(loginInfo);
+			UserDTO response = userManagement.getUserInfo(loginInfo);
 			System.out.println("am gasit  " + response);
 
 			return response;
@@ -124,27 +125,58 @@ public class UtilizatorController {
 	@Path("/signup")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UtilizatorDTO signup(String json) {
+	public UserDTO signup(String json) {
 		JSONObject jsonObj;
 		System.out.println("am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");
 			String password = jsonObj.getString("password");
-			String nume = jsonObj.getString("nume");
+			String name = jsonObj.getString("name");
 			String phonenumber = jsonObj.getString("phonenumber");
 			String username = jsonObj.getString("username");
 
-			SignUpDTO SignUpinfo = new SignUpDTO(nume,phonenumber, username, password, email);
+			SignUpDTO SignUpinfo = new SignUpDTO(name,phonenumber, username, password, email);
 
 			Resource r = new ClassPathResource("applicationContext.xml");
 			BeanFactory factory = new XmlBeanFactory(r);
-			UtilizatorManager signManagement = (UtilizatorManager) factory.getBean("signManagement");
+			UserManager signManagement = (UserManager) factory.getBean("signManagement");
 
-			UtilizatorDTO response = signManagement.addUtilizator(SignUpinfo);
+			UserDTO response = signManagement.addUser(SignUpinfo);
 			System.out.println("am creat  " + response);
 
 			return response;
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return null;
+		}
+	}
+	@
+	@Path("/createTeams")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserDTO CreateTeams(String json) {
+		JSONObject jsonObj;
+		System.out.println("am primit " + json);
+		try {
+			jsonObj = new JSONObject(json);
+		    int teamID = jsonObj.getInt("teamID");
+			String teamName = jsonObj.getString("teamName");
+			
+			CreateTeamsDTO CreateTeamsinfo = new CreateTeamsDTO(teamID, teamName);
+
+			Resource r = new ClassPathResource("applicationContext.xml");
+			BeanFactory factory = new XmlBeanFactory(r);
+			UserManager signCreate = (UserManager) factory.getBean("signCreate");
+
+			UserDTO response = signCreate.addEmployee(CreateTeams info);
+			System.out.println("am creat  " + response);
+			
+			UserDTO response = signCreate.addManager(CreateTeams info);
+			System.out.println("am creat  " + response);
+			
+		
+            
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;

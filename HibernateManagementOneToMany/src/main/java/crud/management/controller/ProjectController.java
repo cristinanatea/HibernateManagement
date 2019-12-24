@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.codehaus.jettison.json.JSONObject;
 import org.hibernate.Session;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,72 +21,71 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import crud.management.persistence.model.Angajat;
-import crud.management.persistence.util.HibernateUtil;
-import crud.management.persistence.dao.AngajatDAO;
+import crud.management.persistence.model.Project;
+import crud.management.persistence.dao.ProjectDAO;
 import crud.management.persistence.dao.RequestStatus;
 
 @RestController
-@Path("/users")
-public class AngajatController {
-	Resource r = new ClassPathResource("applicationContext.xml");
-	BeanFactory factory = new XmlBeanFactory(r);
-	/*---get all angajati---*/
+@Path("/Project")
+public class ProjectController {
+
+	/*---get all projects---*/
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Angajat> listUsers() {
-		
+	public List<Project> listUsers() {
+		Resource r = new ClassPathResource("applicationContext.xml");
+		BeanFactory factory = new XmlBeanFactory(r);
 
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
+		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
 
-		return angajatDao.listAngajati();
+		return ProjectDao.listProjects();
 	}
 
-	/*---get a book by ID---*/
+	/*---get a project by ID---*/
 	@GET
-	@Path("/angajat/{id}")
+	@Path("/Project/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Angajat get(@PathVariable("id") int angajatID) {
+	public Project get(@PathVariable("id") int ProjectID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
 
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
+		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
 
-		return angajatDao.getAngajatById(angajatID);
+		return ProjectDao.getProjectById(ProjectID);
 	}
 
-	/*---add a new angajat---*/
+	/*---add a new project---*/
 	@POST
-	@Path("/angajat")
+	@Path("/Project")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus save(@RequestBody Angajat angajat) {
+	public RequestStatus save(@RequestBody Project Project) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
-		return angajatDao.addAngajat(angajat);
+		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
+		return ProjectDao.addProject(Project);
 	}
 
-	/*---update an angajat by id---*/
+	/*---update an project by id---*/
 	@PUT
 	@Path("/update/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus update(@RequestBody Angajat angajat) {
+	public RequestStatus update(@RequestBody Project Project) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
-		return angajatDao.updateAngajat(angajat);
+		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
+		return ProjectDao.updateProject(Project);
 	}
-	
-	/*---delete an angajat by id---*/
+
+	/*---delete an project by id---*/
 	@DELETE
 	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus delete(@RequestBody int angajatID) {
+	public RequestStatus delete(@RequestBody int ProjectID) {
 		Resource r = new ClassPathResource("applicationContext.xml");
 		BeanFactory factory = new XmlBeanFactory(r);
-		AngajatDAO angajatDao = (AngajatDAO) factory.getBean("angajatDAO");
-		return angajatDao.removeAngajat(angajatID);
+		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
+		return ProjectDao.removeProject(ProjectID);
 	}
-	
+
 }
