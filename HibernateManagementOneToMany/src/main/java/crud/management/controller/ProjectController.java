@@ -11,81 +11,71 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jettison.json.JSONObject;
 import org.hibernate.Session;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import crud.management.business.UserManager;
+import crud.management.commons.ProjectInfo;
+import crud.management.commons.UserInfo;
 import crud.management.persistence.model.Project;
-import crud.management.persistence.dao.ProjectDAO;
-import crud.management.persistence.dao.RequestStatus;
+
 
 @RestController
-@Path("/Project")
+@Path("/project")
 public class ProjectController {
-
-	/*---get all projects---*/
-	@GET
-	@Path("/list")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Project> listUsers() {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
-
-		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
-
-		return ProjectDao.listProjects();
-	}
-
-	/*---get a project by ID---*/
-	@GET
-	@Path("/Project/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Project get(@PathVariable("id") int ProjectID) {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
-
-		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
-
-		return ProjectDao.getProjectById(ProjectID);
-	}
-
-	/*---add a new project---*/
 	@POST
-	@Path("/Project")
+	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus save(@RequestBody Project Project) {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
-		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
-		return ProjectDao.addProject(Project);
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProjectInfo login(String json) {
+		JSONObject jsonObj;
+		System.out.println("am primit " + json);
+		try {
+			jsonObj = new JSONObject(json);
+			String name = jsonObj.getString("name");
+			int managerID = jsonObj.getInt("managerID");
+
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+
+			return manager.createProject(name, managerID);
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return null;
+		}
 	}
 
-	/*---update an project by id---*/
-	@PUT
-	@Path("/update/{id}")
+	@POST
+	@Path("/asign")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus update(@RequestBody Project Project) {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
-		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
-		return ProjectDao.updateProject(Project);
+	@Produces(MediaType.APPLICATION_JSON)
+	public ProjectInfo asignUserToProject(String json) {
+		JSONObject jsonObj;
+		System.out.println("am primit " + json);
+		try {
+			jsonObj = new JSONObject(json);
+			int userID = jsonObj.getInt("userID");
+			int projectID = jsonObj.getInt("projectID");
+
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+
+			return manager.asignUserToProject(userID, projectID);
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return null;
+		}
 	}
 
-	/*---delete an project by id---*/
-	@DELETE
-	@Path("/delete/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public RequestStatus delete(@RequestBody int ProjectID) {
-		Resource r = new ClassPathResource("applicationContext.xml");
-		BeanFactory factory = new XmlBeanFactory(r);
-		ProjectDAO ProjectDao = (ProjectDAO) factory.getBean("ProjectDAO");
-		return ProjectDao.removeProject(ProjectID);
-	}
-
+	
+	
 }

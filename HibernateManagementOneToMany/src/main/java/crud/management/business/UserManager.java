@@ -1,21 +1,12 @@
 package crud.management.business;
 
-import crud.management.commons.LoginDTO;
-import crud.management.commons.SignUpDTO;
-import crud.management.commons.UserDTO;
-import crud.management.persistence.daoimpl.CreateTeamsDTO;
-import crud.management.persistence.model.User;
+import crud.management.commons.ProjectInfo;
+import crud.management.commons.UserInfo;
 
-public interface UserManager {
-	/*
-	UserDTOep getUserById(int UserID);
-	List<User> listUseri();
-	public UserDTOep  addUser(User User);
-	public UserDTOep loginUser(String email, String password);
-
-*/
-
-	public UserDTO getUserInfo(LoginDTO loginInfo);
-	public UserDTO addUser(SignUpDTO SignUpinfo);
-	public User createTeamsDTO(CreateTeamsDTO info);
+public interface UserManager
+{
+	public UserInfo login(String email, String password);
+	public UserInfo signUp(String nume, String phoneNumber, String email,String password);
+	public ProjectInfo createProject(String nume, int managerID);
+	public ProjectInfo asignUserToProject(int userID, int projectID);
 }

@@ -6,10 +6,10 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -21,9 +21,23 @@ public class Project implements Serializable {
 	@GeneratedValue
 	private int projectID;
 	private int managerID;
-	private String description;
-	private String startDate;
-	private String endDate;
+	private String name;
+	
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "Organisation", joinColumns = { @JoinColumn(name = "projectID") }, inverseJoinColumns = {
+			@JoinColumn(name = "userID") })
+	private Set<User> users = new HashSet<User>();
+
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void addUser(User user) {
+		users.add(user);
+	}
+	
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -40,28 +54,18 @@ public class Project implements Serializable {
 	public void setManagerID(int managerID) {
 		this.managerID = managerID;
 	}
-	public String getDescription() {
-		return description;
+	public String getName()
+	{
+		return name;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name)
+	{
+		this.name = name;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
+
 	@Override
 	public String toString() {
-		return "Project [projectID=" + projectID + ", managerID=" + managerID + ", description=" + description
-				+ ", startDate=" + startDate + ", endDate=" + endDate + "]";
+		return "Project [projectID=" + projectID + ", managerID=" + managerID + ", name=" + name+"]";
 	}
 	
 }

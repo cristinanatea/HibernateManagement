@@ -1,10 +1,17 @@
 package crud.management.persistence.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "user")
@@ -17,11 +24,20 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue 
     private int userID;
-	private String username;
 	private String password;
 	private String email;
 	private String name;
 	private String phoneNumber;
+	
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "Organisation", joinColumns = { @JoinColumn(name = "userID") }, inverseJoinColumns = {
+			@JoinColumn(name = "projectID") })
+	private Set<Project> projects = new HashSet<Project>();
+
+	public Set<Project> getProjects() {
+		return projects;
+	}
 
 	public User() {
 		super();
@@ -35,13 +51,7 @@ public class User implements Serializable {
 		this.userID = userID;
 	}
 
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public String getPassword() {
 		return password;
@@ -77,7 +87,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userID=" + userID + ", username=" + username + ", password=" + password + ", email=" + email
+		return "User [userID=" + userID + ", password=" + password + ", email=" + email
 				+ ", name=" + name + ", phoneNumber=" + phoneNumber + "]";
 	}
 
