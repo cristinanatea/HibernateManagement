@@ -10,6 +10,7 @@ public class UserInfo {
 	List<String> asignedProjects;
 	String status = "OK";
 
+
 	public String getStatus() {
 		return status;
 	}
@@ -57,4 +58,6 @@ public class UserInfo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	
 }
