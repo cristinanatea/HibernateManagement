@@ -26,22 +26,20 @@ public class UserManagerImpl implements UserManager {
 
 	private UserInfo getUserInfo(User user) {
 		UserInfo userInfo = new UserInfo();
-		
+
 		if (user != null) {
 			userInfo.setUserID(user.getUserID());
 			userInfo.setPhoneNumber(user.getPhoneNumber());
 			userInfo.setName(user.getName());
 			userInfo.setEmail(user.getEmail());
 			List<String> projects = new ArrayList<String>();
-	
+
 			for (Project project : user.getProjects()) {
 				projects.add(project.getName());
 			}
-	
+
 			userInfo.setAsignedProjects(projects);
-		}
-		else
-		{
+		} else {
 			userInfo.setStatus("User does not exist");
 		}
 
@@ -128,6 +126,24 @@ public class UserManagerImpl implements UserManager {
 			project.addUser(user);
 			db.updateProject(project);
 			return getProjectInfo(project, user);
+		}
+		return null;
+	}
+
+	public UserInfo setPassword(String email, String newPassword, String oldPassword) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		User user = db.getUserByEmail(email);
+
+		if (user != null)
+		{
+			if (user.getPassword().equals(oldPassword) )
+			{
+				user.setPassword(newPassword);
+				db.updateUser(user);
+				return getUserInfo(user);
+			}
+			
 		}
 		return null;
 	}

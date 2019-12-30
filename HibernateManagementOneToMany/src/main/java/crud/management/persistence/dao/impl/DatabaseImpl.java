@@ -31,7 +31,9 @@ public class DatabaseImpl implements DatabaseInterface {
 
 	public User updateUser(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx1 = session.beginTransaction();	
 		session.update(user);
+		tx1.commit();
 		return user;
 	}
 
@@ -103,7 +105,9 @@ public class DatabaseImpl implements DatabaseInterface {
 
 	public List<Project> listProjects() {
 		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx1 = session.beginTransaction();
 		List<Project> projectsList = session.createQuery("from Project").list();
+		tx1.commit();
 		return projectsList;
 	}
 
