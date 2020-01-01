@@ -1,9 +1,12 @@
 package crud.management.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
 import crud.management.business.UserManager;
 import crud.management.commons.ProjectInfo;
+import crud.management.commons.UserInfo;
 
 
 @RestController
@@ -20,10 +24,20 @@ public class ProjectController {
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ProjectInfo login(String json) {
+	public ProjectInfo create(String json, @Context HttpServletRequest req) {
 		JSONObject jsonObj;
 		System.out.println("am primit " + json);
 		try {
+			HttpSession session= req.getSession(true);
+			Object userInfo = session.getAttribute("userInfo");
+			if (userInfo != null) 
+			{
+				System.out.println("Utilizatorul curent: " + (UserInfo)userInfo);
+			} else
+			{
+				System.out.println("No user logged in");
+			}
+			
 			jsonObj = new JSONObject(json);
 			String name = jsonObj.getString("name");
 			int managerID = jsonObj.getInt("managerID");

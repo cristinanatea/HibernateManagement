@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +12,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
 import crud.management.business.UserManager;
 import crud.management.commons.UserInfo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @RestController
@@ -20,9 +23,12 @@ public class UserController {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserInfo login(String json) {
+	public UserInfo login(String json, @Context HttpServletRequest req) {
 		JSONObject jsonObj;
 		System.out.println("am primit " + json);
+		
+		HttpSession session= req.getSession(true);
+		
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");
@@ -31,7 +37,15 @@ public class UserController {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
-			return manager.login(email, password);
+			UserInfo userInfo = manager.login(email, password);
+			
+			if (userInfo != null)
+			{
+				System.out.println("User logged in: " + userInfo);
+				session.setAttribute("userInfo", userInfo);
+			}
+			
+			return userInfo;
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;

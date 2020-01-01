@@ -3,6 +3,12 @@ package crud.management.commons;
 import java.util.List;
 
 public class UserInfo {
+	@Override
+	public String toString() {
+		return "UserInfo [userID=" + userID + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email
+				+ ", asignedProjects=" + asignedProjects + ", status=" + status + "]";
+	}
+
 	int userID;
 	String name;
 	String phoneNumber;
