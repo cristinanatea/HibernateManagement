@@ -28,8 +28,17 @@ public class User implements Serializable {
 	private String email;
 	private String name;
 	private String phoneNumber;
+	private int acces;
 	
 	
+	public int getAcces() {
+		return acces;
+	}
+
+	public void setAcces(int acces) {
+		this.acces = acces;
+	}
+
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "Organisation", joinColumns = { @JoinColumn(name = "userID") }, inverseJoinColumns = {
 			@JoinColumn(name = "projectID") })

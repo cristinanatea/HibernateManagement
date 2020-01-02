@@ -29,23 +29,32 @@ public class ProjectController {
 		System.out.println("am primit " + json);
 		try {
 			HttpSession session= req.getSession(true);
-			Object userInfo = session.getAttribute("userInfo");
-			if (userInfo != null) 
+		
+			UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
+			if (userInfo == null) 
 			{
-				System.out.println("Utilizatorul curent: " + (UserInfo)userInfo);
-			} else
+				ProjectInfo z = new ProjectInfo();
+				z.setStatus("You must be logged in!");
+				return z; 
+			}
+			else if (userInfo.getAcces() == 0)
 			{
-				System.out.println("No user logged in");
+				ProjectInfo z = new ProjectInfo();
+				z.setStatus("No rights!");
+				return z; 
+			} else {
+				System.out.println("Utilizatorul curent: " + userInfo);
+				
+				jsonObj = new JSONObject(json);
+				String name = jsonObj.getString("name");
+				int managerID = jsonObj.getInt("managerID");
+
+				ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+				UserManager manager = (UserManager) context.getBean("userManagerBean");
+
+				return manager.createProject(name, managerID);
 			}
 			
-			jsonObj = new JSONObject(json);
-			String name = jsonObj.getString("name");
-			int managerID = jsonObj.getInt("managerID");
-
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			UserManager manager = (UserManager) context.getBean("userManagerBean");
-
-			return manager.createProject(name, managerID);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;

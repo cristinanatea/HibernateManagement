@@ -13,9 +13,18 @@ public class UserInfo {
 	String name;
 	String phoneNumber;
 	String email;
+	int acces;
 	List<String> asignedProjects;
 	String status = "OK";
 
+
+	public int getAcces() {
+		return acces;
+	}
+
+	public void setAcces(int acces) {
+		this.acces = acces;
+	}
 
 	public String getStatus() {
 		return status;

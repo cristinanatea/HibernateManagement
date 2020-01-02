@@ -47,14 +47,14 @@ public class DatabaseImpl implements DatabaseInterface {
 	public User getUserById(int UsersD) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx1 = session.beginTransaction();
-		User user = (User) session.load(User.class, new Integer(UsersD));
+		User user = (User) session.get(User.class, new Integer(UsersD));
 		tx1.commit();
 		return user;
 	}
 
 	public boolean removeUser(int UsersD) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(UsersD));
+		User user = (User) session.get(User.class, new Integer(UsersD));
 		if (null != user) {
 			session.delete(user);
 			return true;
@@ -114,7 +114,7 @@ public class DatabaseImpl implements DatabaseInterface {
 	public Project getProjectById(int projectID) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx1 = session.beginTransaction();
-		Project proj = (Project) session.load(Project.class, new Integer(projectID));
+		Project proj = (Project) session.get(Project.class, new Integer(projectID));
 		tx1.commit();
 		return proj;
 	}
@@ -122,7 +122,7 @@ public class DatabaseImpl implements DatabaseInterface {
 	public boolean removeProject(int projectID) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		Project proj = (Project) session.load(Project.class, new Integer(projectID));
+		Project proj = (Project) session.get(Project.class, new Integer(projectID));
 		if (null != proj) {
 			session.delete(proj);
 			return true;

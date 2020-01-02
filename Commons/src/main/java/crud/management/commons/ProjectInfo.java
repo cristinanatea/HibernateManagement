@@ -11,6 +11,9 @@ public class ProjectInfo {
 	String status = "";
 	
 	
+	public String getStatus() {
+		return status;
+	}
 	public int getProjectID() {
 		return projectID;
 	}

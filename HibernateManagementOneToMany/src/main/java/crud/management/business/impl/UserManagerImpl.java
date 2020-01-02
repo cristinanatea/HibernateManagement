@@ -32,6 +32,7 @@ public class UserManagerImpl implements UserManager {
 			userInfo.setPhoneNumber(user.getPhoneNumber());
 			userInfo.setName(user.getName());
 			userInfo.setEmail(user.getEmail());
+			userInfo.setAcces(user.getAcces());
 			List<String> projects = new ArrayList<String>();
 
 			for (Project project : user.getProjects()) {
@@ -93,6 +94,7 @@ public class UserManagerImpl implements UserManager {
 		user.setPhoneNumber(phoneNumber);
 		user.setEmail(email);
 		user.setPassword(password);
+		user.setAcces(0);
 		db.addUser(user);
 
 		return getUserInfo(user);
@@ -100,7 +102,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public ProjectInfo createProject(String name, int managerID) {
-
+		ProjectInfo status;
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
 		User user = db.getUserById(managerID);
@@ -112,12 +114,17 @@ public class UserManagerImpl implements UserManager {
 			db.addProject(project);
 
 			return getProjectInfo(project, user);
+		} else {
+			status = new ProjectInfo();
+			status.setStatus("Userul nu exista");
 		}
-		return null;
+
+		return status;
 	}
 
 	@Override
 	public ProjectInfo asignUserToProject(int userID, int projectID) {
+		ProjectInfo status;
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
 		User user = db.getUserById(userID);
@@ -125,26 +132,38 @@ public class UserManagerImpl implements UserManager {
 		if (user != null && project != null) {
 			project.addUser(user);
 			db.updateProject(project);
-			return getProjectInfo(project, user);
+			status = getProjectInfo(project, user);
+		} else {
+			status = new ProjectInfo();
+			status.setStatus("Userul nu exista");
 		}
-		return null;
+
+		return status;
 	}
 
 	public UserInfo setPassword(String email, String newPassword, String oldPassword) {
+		UserInfo status;
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
 		User user = db.getUserByEmail(email);
-
-		if (user != null)
-		{
-			if (user.getPassword().equals(oldPassword) )
-			{
+		if (user != null) {
+			if (user.getPassword().equals(oldPassword)) {
 				user.setPassword(newPassword);
 				db.updateUser(user);
-				return getUserInfo(user);
+				status = getUserInfo(user);
 			}
-			
+			else {
+				
+				status = new UserInfo();
+				status.setStatus(" Passwords do not match!");
+			}		
 		}
-		return null;
+		else
+		{
+			status = new UserInfo();
+			status.setStatus("Userul nu exista");
+		}
+		
+		return status;	
 	}
 }
