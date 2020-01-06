@@ -8,12 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome</title>
 
-<link href="<c:url value="/criss.css" />" rel="stylesheet">
-    
 </head>
 <body>
 	<c:if test="${!empty user}">
               Welcome <c:out value="${user.username}" /> ! You are logged in!
 	</c:if>
 </body>
+</html>
 </html>

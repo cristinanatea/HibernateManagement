@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -47,22 +48,26 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String parola = request.getParameter("password");
-		
+
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/Sample/rest/users/login");
-		
+		WebResource webResource = client.resource("http://localhost:8080/Frontend/rest/users/login");
+
 		LoginDTO loginInfo = new LoginDTO();
 		loginInfo.setEmail(email);
 		loginInfo.setPassword(parola);
-		
-		ClientResponse status = webResource.post(ClientResponse.class, loginInfo);	
-		
+
+		ObjectMapper mapper = new ObjectMapper();
+		// Java object to JSON string
+		String jsonString = mapper.writeValueAsString(loginInfo);
+
+		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,
+				jsonString);
+
 		if (status.getStatus() != 200) {
-			System.out.println("Error on backend" +  response.getStatus());
+			System.out.println("Error on backend" + response.getStatus());
 		} else {
 			String json = status.getEntity(String.class);
-			
-			ObjectMapper mapper = new ObjectMapper();//creaza obj pe care il indic si asigneaza valoarea cheii respective
+
 			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
 
 			request.setAttribute("user", userInfo);

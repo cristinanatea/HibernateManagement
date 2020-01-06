@@ -1,6 +1,5 @@
 package com.Spring.servlets;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -8,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -46,7 +46,7 @@ public class SignUpServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher requestDispatcher;
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
@@ -62,18 +62,22 @@ public class SignUpServlet extends HttpServlet {
 		signupInfo.setName(name);
 		signupInfo.setPhoneNumber(phoneNumber);
 		
-		ClientResponse status = webResource.post(ClientResponse.class, signupInfo);	
-		
+		ObjectMapper mapper = new ObjectMapper();
+		// Java object to JSON string
+		String jsonString = mapper.writeValueAsString(signupInfo);
+
+		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,
+				jsonString);
+
 		if (status.getStatus() != 200) {
-			System.out.println("Error on backend" +  response.getStatus());
+			System.out.println("Error on backend" + response.getStatus());
 		} else {
 			String json = status.getEntity(String.class);
-			
-			ObjectMapper mapper = new ObjectMapper();//creaza obj pe care il indic si asigneaza valoarea cheii respective
+
 			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
 
 			request.setAttribute("user", userInfo);
-			request.getRequestDispatcher("/MyLogin.jsp").forward(request, response);
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		}
 	}
 }
