@@ -1,6 +1,5 @@
 package com.Spring.servlets;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -8,19 +7,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
 
-import com.Spring.utilizator.dao.UtilizatorDAO;
-import com.Spring.utilizator.model.Utilizator;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import crud.management.commons.LoginDTO;
+import crud.management.commons.UserInfo;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@Autowired
-//    UtilizatorDAO utilizatorDAO;
-	private WebApplicationContext webApplicationContext;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -32,12 +30,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-
-    	@SuppressWarnings("resource")
-		ApplicationContext context = 
-    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-    	 
-
+ 	 
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -52,10 +45,28 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher requestDispatcher;
 		String email = request.getParameter("email");
 		String parola = request.getParameter("password");
+		
+		Client client = Client.create();
+		WebResource webResource = client.resource("http://localhost:8080/Sample/rest/users/login");
+		
+		LoginDTO loginInfo = new LoginDTO();
+		loginInfo.setEmail(email);
+		loginInfo.setPassword(parola);
+		
+		ClientResponse status = webResource.post(ClientResponse.class, loginInfo);	
+		
+		if (status.getStatus() != 200) {
+			System.out.println("Error on backend" +  response.getStatus());
+		} else {
+			String json = status.getEntity(String.class);
+			
+			ObjectMapper mapper = new ObjectMapper();//creaza obj pe care il indic si asigneaza valoarea cheii respective
+			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
 
-		System.out.println("Email: " + email);
+			request.setAttribute("user", userInfo);
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
+		}
 	}
 }
