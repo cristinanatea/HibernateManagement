@@ -10,11 +10,11 @@
 	<form action="login" method="post">
 		<div>
 			<label for="email">Email:</label> <input type="email" id="email"
-				name="email" />
+				name="email" value="cristina.natea8@gmail.com" />
 		</div>
 		<div>
 			<label for="pwd">Password:</label> <input type="password" id="pwd"
-				name="password" />
+				name="password" value="Ausy" />
 		</div>
 
 		<div>
