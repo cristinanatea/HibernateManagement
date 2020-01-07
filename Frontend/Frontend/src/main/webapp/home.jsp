@@ -11,8 +11,7 @@
 </head>
 <body>
 	<c:if test="${!empty user}">
-              Welcome <c:out value="${user.username}" /> ! You are logged in!
+              Welcome <c:out value="${user.name}" /> ! You are logged in!
 	</c:if>
 </body>
-</html>
 </html>
