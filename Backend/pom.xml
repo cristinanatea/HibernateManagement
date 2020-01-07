@@ -127,9 +127,9 @@
 			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>commons</groupId>
+			<groupId>com.sample.commons</groupId>
 			<artifactId>Commons</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

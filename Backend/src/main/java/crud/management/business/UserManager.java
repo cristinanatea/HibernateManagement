@@ -1,7 +1,7 @@
 package crud.management.business;
 
-import crud.management.commons.ProjectInfo;
-import crud.management.commons.UserInfo;
+import com.sample.commons.ProjectInfo;
+import com.sample.commons.UserInfo;
 
 public interface UserManager
 {

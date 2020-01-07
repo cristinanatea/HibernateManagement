@@ -6,9 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.sample.commons.ProjectInfo;
+import com.sample.commons.UserInfo;
+
 import crud.management.business.UserManager;
-import crud.management.commons.ProjectInfo;
-import crud.management.commons.UserInfo;
 import crud.management.persistence.dao.DatabaseInterface;
 import crud.management.persistence.model.Project;
 import crud.management.persistence.model.User;

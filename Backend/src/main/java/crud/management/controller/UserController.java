@@ -10,8 +10,11 @@ import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sample.commons.UserInfo;
+
 import crud.management.business.UserManager;
-import crud.management.commons.UserInfo;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
