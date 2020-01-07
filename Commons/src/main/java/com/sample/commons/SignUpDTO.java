@@ -1,4 +1,4 @@
-package crud.management.commons;
+package com.sample.commons;
 
 public class SignUpDTO {
 
