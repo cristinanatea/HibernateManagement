@@ -1,11 +1,6 @@
 package com.sample.commons;
 
 public class LoginDTO {
-	@Override
-	public String toString() {
-		return "UserInfo [email=" + email + ", password=" + password + "]";
-	}
-
 	String password;
 	String email;
 
