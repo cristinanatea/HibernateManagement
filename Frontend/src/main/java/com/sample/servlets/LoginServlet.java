@@ -1,7 +1,7 @@
-package com.Spring.servlets;
+package com.sample.servlets;
+
 import java.io.IOException;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,60 +11,36 @@ import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import crud.management.commons.SignUpDTO;
-import crud.management.commons.UserInfo;
+import com.sample.commons.LoginDTO;
+
+import com.sample.commons.UserInfo;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-@WebServlet("/signUp")
-public class SignUpServlet extends HttpServlet {
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SignUpServlet() {
-		super();
-	}
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
- 	 
-	}
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String phoneNumber= request.getParameter("phoneNumber");
-		
-		
+		String parola = request.getParameter("password");
+
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/Sample/rest/users/signUp");
-		
-		SignUpDTO signupInfo = new SignUpDTO();
-		signupInfo.setEmail(email);
-		signupInfo.setPassword(password);
-		signupInfo.setName(name);
-		signupInfo.setPhoneNumber(phoneNumber);
-		
+		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/login");
+
+		LoginDTO loginInfo = new LoginDTO();
+		loginInfo.setEmail(email);
+		loginInfo.setPassword(parola);
+
 		ObjectMapper mapper = new ObjectMapper();
 		// Java object to JSON string
-		String jsonString = mapper.writeValueAsString(signupInfo);
+		String jsonString = mapper.writeValueAsString(loginInfo);
 
 		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,
 				jsonString);

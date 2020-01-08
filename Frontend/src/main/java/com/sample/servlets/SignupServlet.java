@@ -17,8 +17,8 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-@WebServlet("/signUp")
-public class SignUpServlet extends HttpServlet {
+@WebServlet("/signup")
+public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
 
 
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/signUp");
+		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/signup");
 
 		SignUpDTO signUpInfo = new SignUpDTO();
 	    signUpInfo.setEmail(email);
@@ -46,8 +46,7 @@ public class SignUpServlet extends HttpServlet {
 		// Java object to JSON string
 		String jsonString = mapper.writeValueAsString(signUpInfo);
 
-		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,
-				jsonString);
+		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,jsonString);
 
 		if (status.getStatus() != 200) {
 			System.out.println("Error on backend" + response.getStatus());
@@ -61,3 +60,4 @@ public class SignUpServlet extends HttpServlet {
 		}
 	}
 }
+

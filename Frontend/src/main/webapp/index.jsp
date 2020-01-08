@@ -9,8 +9,8 @@
 
 <body>
 
-<a href="login.jsp">Login</a> <a href="SignUp.jsp">SignUp</a>
-
+<p> <a href="Signup.jsp">SignUp</a></p>
+<p> <a href="login.jsp">Login</a></p>
 
 </body>
 
