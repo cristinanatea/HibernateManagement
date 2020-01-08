@@ -131,4 +131,20 @@ public class DatabaseImpl implements DatabaseInterface {
 		return false;
 	}
 
+	@Override
+	public Project getProjectByName(String projectName) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx1 = session.beginTransaction();
+		Query query = (Query) session.createQuery("from Project WHERE name = :name");
+		query.setParameter("name", name);
+		
+		List<User> ProjectsList = query.list();
+		tx1.commit();
+		for (User project : ProjectsList) {
+			return project;
+		}
+		return null;
+
+	}
+
 }

@@ -23,6 +23,7 @@ public interface DatabaseInterface {
 	public List<Project> listProjects();
 	public Project getProjectById(int ProjectID);
 	public boolean removeProject(int ProjectID);
+	public Project getProjectByName(String projectName);
 
 
 }

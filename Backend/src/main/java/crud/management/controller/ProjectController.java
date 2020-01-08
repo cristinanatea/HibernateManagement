@@ -49,12 +49,12 @@ public class ProjectController {
 				
 				jsonObj = new JSONObject(json);
 				String name = jsonObj.getString("name");
-				int managerID = jsonObj.getInt("managerID");
+				String managerEmail = jsonObj.getString("managerEmail");
 
 				ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 				UserManager manager = (UserManager) context.getBean("userManagerBean");
 
-				return manager.createProject(name, managerID);
+				return manager.createProject(name, managerEmail);
 			}
 			
 		} catch (Exception e) {
@@ -72,13 +72,13 @@ public class ProjectController {
 		System.out.println("am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
-			int userID = jsonObj.getInt("userID");
-			int projectID = jsonObj.getInt("projectID");
+			String userEmail = jsonObj.getString("userEmail");
+			String projectName = jsonObj.getString("projectName");
 
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
-			return manager.asignUserToProject(userID, projectID);
+			return manager.asignUserToProject(userEmail, projectName);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;

@@ -103,16 +103,16 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public ProjectInfo createProject(String name, int managerID) {
+	public ProjectInfo createProject(String name, String managerEmail) {
 		ProjectInfo status;
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		User user = db.getUserById(managerID);
+		User user = db.getUserByEmail(managerEmail);
 
 		if (user != null) {
 			Project project = new Project();
 			project.setName(name);
-			project.setManagerID(managerID);
+			project.setManagerID(user.getUserID());
 			db.addProject(project);
 
 			return getProjectInfo(project, user);
@@ -125,12 +125,12 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public ProjectInfo asignUserToProject(int userID, int projectID) {
+	public ProjectInfo asignUserToProject(String userEmail, String projectName) {
 		ProjectInfo status;
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		User user = db.getUserById(userID);
-		Project project = db.getProjectById(projectID);
+		User user = db.getUserByEmail(userEmail);
+		Project project = db.getProjectByName(projectName);
 		if (user != null && project != null) {
 			project.addUser(user);
 			db.updateProject(project);
