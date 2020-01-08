@@ -44,17 +44,17 @@ public class DatabaseImpl implements DatabaseInterface {
 		return usersList;
 	}
 
-	public User getUserById(int UsersD) {
+	public User getUserById(int UserID) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx1 = session.beginTransaction();
-		User user = (User) session.get(User.class, new Integer(UsersD));
+		User user = (User) session.get(User.class, new Integer(UserID));
 		tx1.commit();
 		return user;
 	}
 
-	public boolean removeUser(int UsersD) {
+	public boolean removeUser(int UserID) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.get(User.class, new Integer(UsersD));
+		User user = (User) session.get(User.class, new Integer(UserID));
 		if (null != user) {
 			session.delete(user);
 			return true;

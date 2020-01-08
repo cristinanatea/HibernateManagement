@@ -67,13 +67,13 @@ public class UserController {
 			String email = jsonObj.getString("email");
 			String password = jsonObj.getString("password");
 			String name = jsonObj.getString("name");
-			String phonenumber = jsonObj.getString("phonenumber");
+			String phoneNumber = jsonObj.getString("phoneNumber");
 		
 
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 			
-            return manager.signUp(name, phonenumber, email, password);
+            return manager.signUp(name, phoneNumber, email, password);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;
