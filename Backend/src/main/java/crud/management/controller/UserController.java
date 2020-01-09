@@ -104,7 +104,6 @@ public class UserController {
 
 	@POST
 	@Path("/listusers")
-
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<UserInfo> listUsers() {
 		try {

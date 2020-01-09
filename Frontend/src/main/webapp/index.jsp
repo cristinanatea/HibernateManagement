@@ -12,6 +12,8 @@
 <p> <a href="Signup.jsp">SignUp</a></p>
 <p> <a href="login.jsp">Login</a></p>
 
+
+<p> <a href="listusers">List users</a></p>
 </body>
 
 </html>

@@ -185,7 +185,8 @@ public class UserManagerImpl implements UserManager {
 				userInfo.setName(user.getName());
 				userInfo.setPhoneNumber(user.getPhoneNumber());
 				userInfo.setUserID(user.getUserID());
-				userInfo.setAcces(user.getAcces());		
+				userInfo.setAcces(user.getAcces());	
+				
 				usersInfo.add(userInfo);
 			}
 			
@@ -211,7 +212,16 @@ public List<ProjectInfo> listProjects() {
 				projectInfo.setProjectID(project.getProjectID());
 				projectInfo.setProjectName(project.getName());
 				projectInfo.setManagerName(project.getName());
+
+				List<String> users = new ArrayList<String>();
+
+				for (User user : project.getUsers()) {
+					users.add(user.getName());
+				}
+
+				projectInfo.setEmployeeNames(users);
 	
+				projectsInfo.add(projectInfo);
 			}
 			
 			return projectsInfo;

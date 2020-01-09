@@ -35,7 +35,7 @@ public class AsignUsersToProjectServlet extends HttpServlet {
 
 
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/project/asignuserstoproject");
+		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/project/asign");
 
 		AsignUsersToProjectDTO asignInfo = new AsignUsersToProjectDTO();
 		asignInfo.setEmail(email);
@@ -49,14 +49,14 @@ public class AsignUsersToProjectServlet extends HttpServlet {
 		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,jsonString);
 
 		if (status.getStatus() != 200) {
-			System.out.println("Error on backend" + response.getStatus());
+			System.out.println("Error on backend " + status.getStatus());
 		} else {
 			String json = status.getEntity(String.class);
 
 			ProjectInfo projectInfo = mapper.readValue(json, ProjectInfo.class);
 
 			request.setAttribute("project", projectInfo);
-			request.getRequestDispatcher("/home.jsp").forward(request, response);
+			request.getRequestDispatcher("/listusers").forward(request, response);
 		}
 	}
 }

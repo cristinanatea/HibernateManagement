@@ -74,7 +74,7 @@ public class ProjectController {
 		System.out.println("am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
-			String userEmail = jsonObj.getString("userEmail");
+			String userEmail = jsonObj.getString("email");
 			String projectName = jsonObj.getString("projectName");
 
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
