@@ -136,11 +136,11 @@ public class DatabaseImpl implements DatabaseInterface {
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx1 = session.beginTransaction();
 		Query query = (Query) session.createQuery("from Project WHERE name = :name");
-		query.setParameter("name", name);
+		query.setParameter("name", projectName);
 		
-		List<User> ProjectsList = query.list();
+		List<Project> ProjectsList = query.list();
 		tx1.commit();
-		for (User project : ProjectsList) {
+		for (Project project : ProjectsList) {
 			return project;
 		}
 		return null;

@@ -168,4 +168,58 @@ public class UserManagerImpl implements UserManager {
 		
 		return status;	
 	}
+	
+	@Override
+	public List<UserInfo> listUsers() {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		
+		try {
+			List<UserInfo> usersInfo = new ArrayList<UserInfo>();
+			
+			List<User> usersList =  db.listUsers();
+			for(User user : usersList) {
+				UserInfo userInfo = new UserInfo();
+				userInfo.setEmail(user.getEmail());
+				userInfo.setName(user.getName());
+				userInfo.setPhoneNumber(user.getPhoneNumber());
+				userInfo.setUserID(user.getUserID());
+				userInfo.setAcces(user.getAcces());		
+				usersInfo.add(userInfo);
+			}
+			
+			return usersInfo;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+public List<ProjectInfo> listProjects() {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		
+		try {
+			List<ProjectInfo> projectsInfo = new ArrayList<ProjectInfo>();
+			
+			List<Project> projectsList =  db.listProjects();
+			for(Project project : projectsList) {
+				ProjectInfo projectInfo = new ProjectInfo();
+				projectInfo.setProjectID(project.getProjectID());
+				projectInfo.setProjectName(project.getName());
+				projectInfo.setManagerName(project.getName());
+	
+			}
+			
+			return projectsInfo;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }

@@ -15,9 +15,10 @@ import com.sample.commons.UserInfo;
 
 import crud.management.business.UserManager;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 @RestController
 @Path("/user")
@@ -29,9 +30,9 @@ public class UserController {
 	public UserInfo login(String json, @Context HttpServletRequest req) {
 		JSONObject jsonObj;
 		System.out.println("am primit " + json);
-		
-		HttpSession session= req.getSession(true);
-		
+
+		HttpSession session = req.getSession(true);
+
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");
@@ -41,13 +42,12 @@ public class UserController {
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
 			UserInfo userInfo = manager.login(email, password);
-			
-			if (userInfo != null)
-			{
+
+			if (userInfo != null) {
 				System.out.println("User logged in: " + userInfo);
 				session.setAttribute("userInfo", userInfo);
 			}
-			
+
 			return userInfo;
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
@@ -68,17 +68,17 @@ public class UserController {
 			String password = jsonObj.getString("password");
 			String name = jsonObj.getString("name");
 			String phoneNumber = jsonObj.getString("phoneNumber");
-		
 
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
-			
-            return manager.signUp(name, phoneNumber, email, password);
+
+			return manager.signUp(name, phoneNumber, email, password);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;
 		}
 	}
+
 	@POST
 	@Path("/password")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -95,7 +95,23 @@ public class UserController {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
-			return manager.setPassword(email,newPassword,oldPassword);
+			return manager.setPassword(email, newPassword, oldPassword);
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return null;
+		}
+	}
+
+	@POST
+	@Path("/listusers")
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<UserInfo> listUsers() {
+		try {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+
+			return manager.listUsers();
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;

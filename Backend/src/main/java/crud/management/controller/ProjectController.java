@@ -1,5 +1,7 @@
 package crud.management.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -85,6 +87,21 @@ public class ProjectController {
 		}
 	}
 
-	
+
+	@POST
+	@Path("/listprojects")
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ProjectInfo> listProjects() {
+		try {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+
+			return manager.listProjects();
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return null;
+		}
+	}
 	
 }
