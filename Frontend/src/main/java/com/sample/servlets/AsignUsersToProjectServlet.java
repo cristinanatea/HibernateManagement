@@ -11,14 +11,17 @@ import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.sample.commons.AsignUsersToProjectDTO;
+import com.sample.commons.CreateProjectDTO;
+import com.sample.commons.ProjectInfo;
 import com.sample.commons.SignUpDTO;
 import com.sample.commons.UserInfo;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-@WebServlet("/createProject")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/asignuserstoproject")
+public class AsignUsersToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -28,23 +31,20 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
-		String parola = request.getParameter("password");
-		String name = request.getParameter("name");
-		String phoneNumber = request.getParameter("phoneNumber");
+		String  projectName = request.getParameter("projectName");
 
 
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/signup");
+		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/project/asignuserstoproject");
 
-		SignUpDTO signUpInfo = new SignUpDTO();
-	    signUpInfo.setEmail(email);
-	    signUpInfo.setPassword(parola);
-	    signUpInfo.setName(name);
-	    signUpInfo.setPhoneNumber(phoneNumber);
+		AsignUsersToProjectDTO asignInfo = new AsignUsersToProjectDTO();
+		asignInfo.setEmail(email);
+		asignInfo.setProjectName(projectName);
+	    
 
 		ObjectMapper mapper = new ObjectMapper();
 		// Java object to JSON string
-		String jsonString = mapper.writeValueAsString(signUpInfo);
+		String jsonString = mapper.writeValueAsString(asignInfo);
 
 		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class,jsonString);
 
@@ -53,11 +53,10 @@ public class HomeServlet extends HttpServlet {
 		} else {
 			String json = status.getEntity(String.class);
 
-			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
+			ProjectInfo projectInfo = mapper.readValue(json, ProjectInfo.class);
 
-			request.setAttribute("user", userInfo);
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			request.setAttribute("project", projectInfo);
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		}
 	}
 }
-

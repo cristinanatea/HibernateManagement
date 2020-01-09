@@ -13,5 +13,9 @@
 	<c:if test="${!empty user}">
               Welcome <c:out value="${user.name}" /> ! You are logged in!
 	</c:if>
+	
+	<p> <a href="proj.jsp">CreateProject</a></p>
+<p> <a href="proj.jsp">AsignUserToProject</a></p>
+
 </body>
 </html>
