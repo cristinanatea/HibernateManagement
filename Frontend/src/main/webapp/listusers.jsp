@@ -11,33 +11,54 @@
 </head>
 <body>
 
-<form action="asignuserstoproject" method="post">
+	<form action="asignuserstoproject" method="post">
 
-	<select name="email">
-		<c:forEach items="${userList}" var="category">
-			<option value="${category.email}">${category.name}</option>
-		</c:forEach>
-	</select>
+		<select name="email">
+			<c:forEach items="${userList}" var="category">
+				<option value="${category.email}">${category.name}</option>
+			</c:forEach>
+		</select> <select name="projectName">
+			<c:forEach items="${projectList}" var="categoryProj">
+				<option value="${categoryProj.projectName}">${categoryProj.projectName}</option>
+			</c:forEach>
+		</select>
 
-	<select name="projectName">
-		<c:forEach items="${projectList}" var="categoryProj">
-			<option value="${categoryProj.projectName}">${categoryProj.projectName}</option>
-		</c:forEach>
-	</select>
-	
-	<button type="submit">Submit</button>
+		<button type="submit">Submit</button>
+	</form>
+
+<form action="createProject" method="POST">
+     <input type="text" name="name" />
+     <input type="text" name="managerEmail" />
+    <button type="submit" name="adauga_proiect" value="Submit">Submit</button>
 </form>
-<br/>
-<br/>
 
-		<c:forEach items="${projectList}" var="projInfo">
+
+	<br />
+	<br />
+	<c:forEach items="${projectList}" var="projInfo">
 			Project: ${projInfo.projectName}<br />
-			<ul>
-				<c:forEach items="${projInfo.employeeNames}" var="employee">
-					<li>${employee}</li>
-				</c:forEach>
-			</ul>
-		</c:forEach>
+		<ul>
+			<c:forEach items="${projInfo.employeeNames}" var="employee">
+				<li>${employee}</li>
+			</c:forEach>
+		</ul>
+	</c:forEach>
 
+	<br />
+	<br />
+     <br />Project: ${projInfo.projectName}<br />
+
+		<ul>
+			<c:forEach items="${projInfo.projectName}" var="projectName">
+				<li>${projectName}</li>
+			</c:forEach>
+		</ul>
+		
+		
+	<form action="Logout" class="LogoutServlet" method="post">
+		<input type="submit" value="Logout">
+	</form>
+		
+	
 </body>
 </html>

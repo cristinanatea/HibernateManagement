@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -30,6 +31,8 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String parola = request.getParameter("password");
+		HttpSession session = request.getSession();
+
 
 		Client client = Client.create();
 		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/login");
@@ -53,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
 
 			request.setAttribute("user", userInfo);
-			request.getRequestDispatcher("/home.jsp").forward(request, response);
+			request.getRequestDispatcher("/listusers").forward(request, response);
 		}
 	}
 }

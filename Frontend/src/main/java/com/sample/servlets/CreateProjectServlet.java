@@ -55,7 +55,7 @@ public class CreateProjectServlet extends HttpServlet {
 			ProjectInfo projectInfo = mapper.readValue(json, ProjectInfo.class);
 
 			request.setAttribute("project", projectInfo);
-			request.getRequestDispatcher("/home.jsp").forward(request, response);
+			request.getRequestDispatcher("/listusers").forward(request, response);
 		}
 	}
 }

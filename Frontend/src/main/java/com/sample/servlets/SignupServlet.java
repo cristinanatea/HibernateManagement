@@ -56,7 +56,7 @@ public class SignupServlet extends HttpServlet {
 			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
 
 			request.setAttribute("user", userInfo);
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/listusers").forward(request, response);
 		}
 	}
 }

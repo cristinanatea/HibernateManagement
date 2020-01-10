@@ -15,7 +15,7 @@
 	</c:if>
 	
 	<p> <a href="proj.jsp">CreateProject</a></p>
-<p> <a href="proj.jsp">AsignUserToProject</a></p>
+    <p> <a href="proj.jsp">AsignUserToProject</a></p>
 
 </body>
 </html>
