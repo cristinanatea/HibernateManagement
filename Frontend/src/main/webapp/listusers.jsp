@@ -27,9 +27,14 @@
 	</form>
 
 <form action="createProject" method="POST">
-     <input type="text" name="name" />
-     <input type="text" name="managerEmail" />
-    <button type="submit" name="adauga_proiect" value="Submit">Submit</button>
+     Project name: <input type="text" name="name" /> 
+     
+     Manager<select name="managerEmail">
+			<c:forEach items="${userList}" var="category">
+				<option value="${category.email}">${category.name}</option>
+			</c:forEach>
+		</select>
+    <button type="submit" value="Submit">Submit</button>
 </form>
 
 
@@ -37,6 +42,11 @@
 	<br />
 	<c:forEach items="${projectList}" var="projInfo">
 			Project: ${projInfo.projectName}<br />
+			
+<form action="deleteProject" method="POST">
+     <input type="hidden" name="name" value="${projInfo.projectName}" /> 
+    <button type="submit" value="Submit">Delete project</button>
+</form>
 		<ul>
 			<c:forEach items="${projInfo.employeeNames}" var="employee">
 				<li>${employee}</li>
@@ -44,15 +54,6 @@
 		</ul>
 	</c:forEach>
 
-	<br />
-	<br />
-     <br />Project: ${projInfo.projectName}<br />
-
-		<ul>
-			<c:forEach items="${projInfo.projectName}" var="projectName">
-				<li>${projectName}</li>
-			</c:forEach>
-		</ul>
 		
 		
 	<form action="Logout" class="LogoutServlet" method="post">

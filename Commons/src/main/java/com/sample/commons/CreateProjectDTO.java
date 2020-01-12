@@ -3,11 +3,11 @@ package com.sample.commons;
 public class CreateProjectDTO {
 	@Override
 	public String toString() {
-		return "CreateProjectDTO [name=" + name + ", ManagerEmail=" + ManagerEmail + "]";
+		return "CreateProjectDTO [name=" + name + ", ManagerEmail=" + managerEmail + "]";
 	}
 	
 	String name;
-	String ManagerEmail;
+	String managerEmail;
 	
 	public String getName() {
 		return name;
@@ -16,10 +16,10 @@ public class CreateProjectDTO {
 		this.name = name;
 	}
 	public String getManagerEmail() {
-		return ManagerEmail;
+		return managerEmail;
 	}
 	public void setManagerEmail(String managerEmail) {
-		ManagerEmail = managerEmail;
+		this.managerEmail = managerEmail;
 	}
 	
    

@@ -232,4 +232,17 @@ public List<ProjectInfo> listProjects() {
 		}
 		
 	}
+
+@Override
+public boolean  deleteProject(String projectName) {
+	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+	Project project = db.getProjectByName(projectName);
+	if (project!= null) {		
+		db.deleteProject(project.getProjectID());	
+	} 
+	
+	return true;
+}
+
 }

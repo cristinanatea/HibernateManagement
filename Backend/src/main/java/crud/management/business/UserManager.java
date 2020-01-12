@@ -15,4 +15,5 @@ public interface UserManager
 	public UserInfo setPassword(String email, String newPassword, String oldPassword);
 	public List<UserInfo> listUsers();
 	public List<ProjectInfo> listProjects();
+	public boolean deleteProject(String projectName);
 }

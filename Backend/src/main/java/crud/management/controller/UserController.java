@@ -29,7 +29,7 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public UserInfo login(String json, @Context HttpServletRequest req) {
 		JSONObject jsonObj;
-		System.out.println("am primit " + json);
+		System.out.println("login: am primit " + json);
 
 		HttpSession session = req.getSession(true);
 
@@ -61,7 +61,7 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public UserInfo signup(String json) {
 		JSONObject jsonObj;
-		System.out.println("am primit " + json);
+		System.out.println("signup: am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");
@@ -85,7 +85,7 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public UserInfo setPassword(String json) {
 		JSONObject jsonObj;
-		System.out.println("am primit " + json);
+		System.out.println("setPassword: am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
 			String email = jsonObj.getString("email");

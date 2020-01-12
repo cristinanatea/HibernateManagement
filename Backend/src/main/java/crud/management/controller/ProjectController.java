@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,11 +31,11 @@ public class ProjectController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProjectInfo create(String json, @Context HttpServletRequest req) {
 		JSONObject jsonObj;
-		System.out.println("am primit " + json);
+		System.out.println("create: am primit " + json);
 		try {
 			HttpSession session= req.getSession(true);
 		
-			UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
+			/*UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
 			if (userInfo == null) 
 			{
 				ProjectInfo z = new ProjectInfo();
@@ -46,11 +47,12 @@ public class ProjectController {
 				ProjectInfo z = new ProjectInfo();
 				z.setStatus("No rights!");
 				return z; 
-			} else {
-				System.out.println("Utilizatorul curent: " + userInfo);
+			} else */
+			{
+				//System.out.println("Utilizatorul curent: " + userInfo);
 				
 				jsonObj = new JSONObject(json);
-				String name = jsonObj.getString("name");
+				String name = jsonObj.getString("name"); 
 				String managerEmail = jsonObj.getString("managerEmail");
 
 				ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -71,7 +73,7 @@ public class ProjectController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProjectInfo asignUserToProject(String json) {
 		JSONObject jsonObj;
-		System.out.println("am primit " + json);
+		System.out.println("asignUserToProject: am primit " + json);
 		try {
 			jsonObj = new JSONObject(json);
 			String userEmail = jsonObj.getString("email");
@@ -101,6 +103,27 @@ public class ProjectController {
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;
+		}
+	}
+	@DELETE
+	@Path("/delete")
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean deleteProject(String json) {
+		JSONObject jsonObj;
+		System.out.println("deleteProject: am primit " + json);
+		
+		try {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+			
+			jsonObj = new JSONObject(json);
+			String name = jsonObj.getString("projectName"); 
+			
+			return manager.deleteProject(name);
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return false;
 		}
 	}
 	

@@ -119,15 +119,20 @@ public class DatabaseImpl implements DatabaseInterface {
 		return proj;
 	}
 
-	public boolean removeProject(int projectID) {
+	public boolean deleteProject(int projectID) {
 		Session session = this.sessionFactory.getCurrentSession();
-
+		Transaction tx1 = session.beginTransaction();
 		Project proj = (Project) session.get(Project.class, new Integer(projectID));
 		if (null != proj) {
+			//sterge relatia dintre proiectul curent si utilizatori din tabela Organisation
+			proj.getUsers().clear();
+
 			session.delete(proj);
+			tx1.commit();
 			return true;
 		}
 
+		tx1.commit();
 		return false;
 	}
 

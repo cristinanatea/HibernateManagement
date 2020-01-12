@@ -22,7 +22,7 @@ public interface DatabaseInterface {
 	public Project updateProject(Project project);
 	public List<Project> listProjects();
 	public Project getProjectById(int ProjectID);
-	public boolean removeProject(int ProjectID);
+	public boolean deleteProject(int ProjectID);
 	public Project getProjectByName(String projectName);
 
 
