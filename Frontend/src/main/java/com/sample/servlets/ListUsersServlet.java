@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -35,6 +36,19 @@ public class ListUsersServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		boolean isAdmin = false;
+
+		HttpSession session = request.getSession();
+		UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
+		if (userInfo == null) 
+		{
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			return;
+		} else
+		{
+			isAdmin =(userInfo.getAcces() != 0);
+		}
 
 		Client client = Client.create();
 		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/listusers");
@@ -55,6 +69,7 @@ public class ListUsersServlet extends HttpServlet {
 			json = statusProjects.getEntity(String.class);
 			List<ProjectInfo> projectList = mapper.readValue(json, new TypeReference<List<ProjectInfo>>(){});
             request.setAttribute("projectList", projectList);
+            request.setAttribute("admin", isAdmin);
                         
 			request.getRequestDispatcher("/listusers.jsp").forward(request, response);
 		}

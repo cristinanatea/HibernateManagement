@@ -10,43 +10,44 @@
 
 </head>
 <body>
+	<c:if test="${admin}">
+		<form action="asignuserstoproject" method="post">
 
-	<form action="asignuserstoproject" method="post">
+			<select name="email">
+				<c:forEach items="${userList}" var="category">
+					<option value="${category.email}">${category.name}</option>
+				</c:forEach>
+			</select> <select name="projectName">
+				<c:forEach items="${projectList}" var="categoryProj">
+					<option value="${categoryProj.projectName}">${categoryProj.projectName}</option>
+				</c:forEach>
+			</select>
 
-		<select name="email">
-			<c:forEach items="${userList}" var="category">
-				<option value="${category.email}">${category.name}</option>
-			</c:forEach>
-		</select> <select name="projectName">
-			<c:forEach items="${projectList}" var="categoryProj">
-				<option value="${categoryProj.projectName}">${categoryProj.projectName}</option>
-			</c:forEach>
-		</select>
+			<button type="submit">Submit</button>
+		</form>
 
-		<button type="submit">Submit</button>
-	</form>
-
-<form action="createProject" method="POST">
-     Project name: <input type="text" name="name" /> 
-     
-     Manager<select name="managerEmail">
-			<c:forEach items="${userList}" var="category">
-				<option value="${category.email}">${category.name}</option>
-			</c:forEach>
-		</select>
-    <button type="submit" value="Submit">Submit</button>
-</form>
-
+		<form action="createProject" method="POST">
+			Project name: <input type="text" name="name" /> Manager<select
+				name="managerEmail">
+				<c:forEach items="${userList}" var="category">
+					<option value="${category.email}">${category.name}</option>
+				</c:forEach>
+			</select>
+			<button type="submit" value="Submit">Submit</button>
+		</form>
+	</c:if>
 
 	<br />
 	<br />
 	<c:forEach items="${projectList}" var="projInfo">
 			Project: ${projInfo.projectName}<br />
-			
-<form action="deleteProject" method="POST">
-     <input type="hidden" name="name" value="${projInfo.projectName}" /> 
-    <button type="submit" value="Submit">Delete project</button>
-</form>
+
+		<c:if test="${admin}">
+			<form action="deleteProject" method="POST">
+				<input type="hidden" name="name" value="${projInfo.projectName}" />
+				<button type="submit" value="Submit">Delete project</button>
+			</form>
+		</c:if>
 		<ul>
 			<c:forEach items="${projInfo.employeeNames}" var="employee">
 				<li>${employee}</li>
@@ -54,12 +55,12 @@
 		</ul>
 	</c:forEach>
 
-		
-		
-	<form action="Logout" class="LogoutServlet" method="post">
-		<input type="submit" value="Logout">
+
+
+	<form action="logout" method="post">
+		<button type="submit">Logout</button>
 	</form>
-		
-	
+
+
 </body>
 </html>

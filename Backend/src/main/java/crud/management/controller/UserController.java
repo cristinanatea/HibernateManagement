@@ -18,7 +18,6 @@ import crud.management.business.UserManager;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RestController
 @Path("/user")
@@ -31,7 +30,7 @@ public class UserController {
 		JSONObject jsonObj;
 		System.out.println("login: am primit " + json);
 
-		HttpSession session = req.getSession(true);
+//		HttpSession session = req.getSession(true);
 
 		try {
 			jsonObj = new JSONObject(json);
@@ -42,12 +41,12 @@ public class UserController {
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
 			UserInfo userInfo = manager.login(email, password);
-
+/*
 			if (userInfo != null) {
 				System.out.println("User logged in: " + userInfo);
 				session.setAttribute("userInfo", userInfo);
 			}
-
+*/
 			return userInfo;
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);

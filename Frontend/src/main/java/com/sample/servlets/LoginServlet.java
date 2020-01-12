@@ -55,6 +55,11 @@ public class LoginServlet extends HttpServlet {
 
 			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
 
+			if (userInfo != null) {
+				System.out.println("User logged in: " + userInfo);
+				session.setAttribute("userInfo", userInfo);
+			}
+
 			request.setAttribute("user", userInfo);
 			request.getRequestDispatcher("/listusers").forward(request, response);
 		}

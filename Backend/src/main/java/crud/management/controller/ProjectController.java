@@ -3,7 +3,6 @@ package crud.management.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
@@ -33,9 +32,9 @@ public class ProjectController {
 		JSONObject jsonObj;
 		System.out.println("create: am primit " + json);
 		try {
-			HttpSession session= req.getSession(true);
+			/*HttpSession session= req.getSession(true);
 		
-			/*UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
+			UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
 			if (userInfo == null) 
 			{
 				ProjectInfo z = new ProjectInfo();
