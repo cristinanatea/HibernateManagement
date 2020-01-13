@@ -2,16 +2,26 @@ package com.sample.commons;
 
 public class SignUpDTO {
 
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
 	@Override
 	public String toString() {
 		return "SignUpDTO [name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email + ", password="
-				+ password + "]";
+				+ password + ", company=" + company + "]";
 	}
 
 	String name;
 	String phoneNumber;
 	String email;
 	String password;
+	String company;
 
 	public String getName() {
 		return name;
