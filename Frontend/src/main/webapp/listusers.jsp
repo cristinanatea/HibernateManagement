@@ -48,6 +48,12 @@
 				<button type="submit" value="Submit">Delete project</button>
 			</form>
 		</c:if>
+		<c:if test="${admin}">
+			<form action="deleteUser" method="POST">
+				<input type="hidden" name="name" value="${userInfo.name}" />
+				<button type="submit" value="Submit">Delete user</button>
+			</form>
+		</c:if>
 		<ul>
 			<c:forEach items="${projInfo.employeeNames}" var="employee">
 				<li>${employee}</li>

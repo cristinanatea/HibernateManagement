@@ -54,14 +54,22 @@ public class LoginServlet extends HttpServlet {
 			String json = status.getEntity(String.class);
 
 			UserInfo userInfo = mapper.readValue(json, UserInfo.class);
+		
 
 			if (userInfo != null) {
 				System.out.println("User logged in: " + userInfo);
 				session.setAttribute("userInfo", userInfo);
 			}
-
+			if ((userInfo.getEmail() == null) || (userInfo.getEmail().equals(""))){
+			 
+				request.setAttribute("message", "Invalid username or password");
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
+				return;
+			}
+			
 			request.setAttribute("user", userInfo);
 			request.getRequestDispatcher("/listusers").forward(request, response);
 		}
+		
 	}
 }

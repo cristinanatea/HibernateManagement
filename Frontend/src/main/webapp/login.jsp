@@ -16,13 +16,19 @@
 			<label for="pwd">Password:</label> <input type="password" id="pwd"
 				name="password" value="Ausy" />
 		</div>
-		<!-- if this is login for update, ignore remember me check -->
-		
-			<tr>
-				<td></td>
-				<td>Remember Me: <input type="checkbox" name="remember-me" /></td>
-			</tr>
-	
+
+		<tr>
+			<td></td>
+			<td>Remember Me: <input type="checkbox" name="remember-me" /></td>
+		</tr>
+
+		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><c:if
+			test="${!empty message}">
+			<div class="text-center">
+				<c:out value="Error: ${message}" />
+			</div>
+		</c:if>
+
 
 		<div>
 			<button type="submit">Submit</button>

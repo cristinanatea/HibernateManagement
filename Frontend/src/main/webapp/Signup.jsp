@@ -22,6 +22,9 @@
 			<label for="phonenumber">PhoneNumber:</label> <input type="phonenumber" id="phonenumber" name="phonenumber" />
 		</div>
 		<div>
+			<label for="company">Company:</label> <input type="company" id="company" name="company" />
+		</div>
+		<div>
 			<label> <input type="checkbox" checked="checked"
 				name="remember" style="margin-bottom: 15px"> Remember me</label>
 		</div>

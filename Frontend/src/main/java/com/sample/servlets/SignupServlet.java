@@ -31,6 +31,7 @@ public class SignupServlet extends HttpServlet {
 		String parola = request.getParameter("password");
 		String name = request.getParameter("name");
 		String phoneNumber = request.getParameter("phoneNumber");
+		String company = request.getParameter("company");
 
 
 		Client client = Client.create();
@@ -41,6 +42,7 @@ public class SignupServlet extends HttpServlet {
 	    signUpInfo.setPassword(parola);
 	    signUpInfo.setName(name);
 	    signUpInfo.setPhoneNumber(phoneNumber);
+	    signUpInfo.setCompany(company);
 
 		ObjectMapper mapper = new ObjectMapper();
 		// Java object to JSON string
