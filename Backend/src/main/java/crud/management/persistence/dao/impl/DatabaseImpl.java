@@ -52,7 +52,7 @@ public class DatabaseImpl implements DatabaseInterface {
 		return user;
 	}
 
-	public boolean removeUser(int UserID) {
+	public boolean deleteUser(int UserID) {
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = (User) session.get(User.class, new Integer(UserID));
 		if (null != user) {

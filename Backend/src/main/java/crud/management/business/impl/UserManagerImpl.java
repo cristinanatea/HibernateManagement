@@ -80,7 +80,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public UserInfo signUp(String name, String phoneNumber, String email, String password) {
+	public UserInfo signUp(String name, String phoneNumber, String email, String password, String company) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
 		boolean isDuplicate = db.isDuplicateEntry(email);
@@ -153,61 +153,59 @@ public class UserManagerImpl implements UserManager {
 				user.setPassword(newPassword);
 				db.updateUser(user);
 				status = getUserInfo(user);
-			}
-			else {
-				
+			} else {
+
 				status = new UserInfo();
 				status.setStatus(" Passwords do not match!");
-			}		
-		}
-		else
-		{
+			}
+		} else {
 			status = new UserInfo();
 			status.setStatus("Userul nu exista");
 		}
-		
-		return status;	
+
+		return status;
 	}
-	
+
 	@Override
 	public List<UserInfo> listUsers() {
-		
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		
+
 		try {
 			List<UserInfo> usersInfo = new ArrayList<UserInfo>();
-			
-			List<User> usersList =  db.listUsers();
-			for(User user : usersList) {
+
+			List<User> usersList = db.listUsers();
+			for (User user : usersList) {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setEmail(user.getEmail());
 				userInfo.setName(user.getName());
 				userInfo.setPhoneNumber(user.getPhoneNumber());
 				userInfo.setUserID(user.getUserID());
-				userInfo.setAcces(user.getAcces());	
-				
+				userInfo.setAcces(user.getAcces());
+
 				usersInfo.add(userInfo);
 			}
-			
+
 			return usersInfo;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
-public List<ProjectInfo> listProjects() {
-		
+
+	public List<ProjectInfo> listProjects() {
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		
+
 		try {
 			List<ProjectInfo> projectsInfo = new ArrayList<ProjectInfo>();
-			
-			List<Project> projectsList =  db.listProjects();
-			for(Project project : projectsList) {
+
+			List<Project> projectsList = db.listProjects();
+			for (Project project : projectsList) {
 				ProjectInfo projectInfo = new ProjectInfo();
 				projectInfo.setProjectID(project.getProjectID());
 				projectInfo.setProjectName(project.getName());
@@ -220,29 +218,40 @@ public List<ProjectInfo> listProjects() {
 				}
 
 				projectInfo.setEmployeeNames(users);
-	
+
 				projectsInfo.add(projectInfo);
 			}
-			
+
 			return projectsInfo;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
-@Override
-public boolean  deleteProject(String projectName) {
-	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-	DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-	Project project = db.getProjectByName(projectName);
-	if (project!= null) {		
-		db.deleteProject(project.getProjectID());	
-	} 
-	
-	return true;
-}
+	@Override
+	public boolean deleteProject(String projectName) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		Project project = db.getProjectByName(projectName);
+		if (project != null) {
+			db.deleteProject(project.getProjectID());
+		}
 
+		return true;
+	}
+
+	@Override
+	public boolean deleteUser(String name) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		User user = db.getUserByEmail(name);
+		if (user != null) {
+			db.deleteUser(user.getUserID());
+		}
+
+		return true;
+	}
 }

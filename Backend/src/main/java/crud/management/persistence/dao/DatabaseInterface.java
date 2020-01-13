@@ -13,7 +13,7 @@ public interface DatabaseInterface {
 	public User updateUser(User user);
 	public List<User> listUsers();
 	public User getUserById(int UserID);
-	public boolean removeUser(int UserID);
+	public boolean deleteUser(int UserID);
     public User getUserByEmail(String email);
     public boolean isDuplicateEntry(String email);
     
@@ -24,6 +24,7 @@ public interface DatabaseInterface {
 	public Project getProjectById(int ProjectID);
 	public boolean deleteProject(int ProjectID);
 	public Project getProjectByName(String projectName);
+	
 
 
 }

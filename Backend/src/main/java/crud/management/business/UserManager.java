@@ -9,11 +9,12 @@ import com.sample.commons.UserInfo;
 public interface UserManager
 {
 	public UserInfo login(String email, String password);
-	public UserInfo signUp(String nume, String phoneNumber, String email,String password);
+	public UserInfo signUp(String nume, String phoneNumber, String email,String password, String company);
 	public ProjectInfo createProject(String nume, String managerEmail);
 	public ProjectInfo asignUserToProject(String userEmail, String projectName);
 	public UserInfo setPassword(String email, String newPassword, String oldPassword);
 	public List<UserInfo> listUsers();
 	public List<ProjectInfo> listProjects();
 	public boolean deleteProject(String projectName);
+	public boolean deleteUser(String name);
 }

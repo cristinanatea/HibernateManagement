@@ -1,6 +1,7 @@
 package crud.management.controller;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -67,11 +68,12 @@ public class UserController {
 			String password = jsonObj.getString("password");
 			String name = jsonObj.getString("name");
 			String phoneNumber = jsonObj.getString("phoneNumber");
+			String company = jsonObj.getString("company");
 
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
-			return manager.signUp(name, phoneNumber, email, password);
+			return manager.signUp(name, phoneNumber, email, password, company);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;
@@ -115,5 +117,27 @@ public class UserController {
 			return null;
 		}
 	}
+	@DELETE
+	@Path("/deleteUser")
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean deleteUser(String json) {
+		JSONObject jsonObj;
+		System.out.println("deleteUser: am primit " + json);
+		
+		try {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+			
+			jsonObj = new JSONObject(json);
+			String name = jsonObj.getString("name"); 
+			
+			return manager.deleteUser(name);
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return false;
+		}
+	}
+	
 
 }
