@@ -22,7 +22,7 @@ public class ProjectInfo {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	List<String>employeeNames;
+	List<UserInfo>employees;
 	String status = "";
 	
 	public String getStatus() {
@@ -46,11 +46,11 @@ public class ProjectInfo {
 	public void setManagerName(String managerName) {
 		this.managerName = managerName;
 	}
-	public List<String> getEmployeeNames() {
-		return employeeNames;
+	public List<UserInfo> getEmployees() {
+		return employees;
 	}
-	public void setEmployeeNames(List<String> employeeNames) {
-		this.employeeNames = employeeNames;
+	public void setEmployees(List<UserInfo> employees) {
+		this.employees = employees;
 	}
 	public void setStatus(String status) {
 		this.status = status;
