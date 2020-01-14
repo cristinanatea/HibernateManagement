@@ -6,16 +6,9 @@ import java.util.List;
 import crud.management.persistence.model.Project;
 import crud.management.persistence.model.User;
 
-public interface DatabaseInterface {
+public interface DatabaseProjectInterface {
 	
-	//user management
-	public User addUser(User user);
-	public User updateUser(User user);
-	public List<User> listUsers();
-	public User getUserById(int UserID);
-	public boolean deleteUser(int UserID);
-    public User getUserByEmail(String email);
-    public boolean isDuplicateEntry(String email);
+	
     
     //project management
     public Project addProject(Project project);

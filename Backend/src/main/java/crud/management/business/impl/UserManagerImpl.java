@@ -6,12 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.sample.commons.ProjectInfo;
 import com.sample.commons.UserInfo;
-
 import crud.management.business.UserManager;
-import crud.management.persistence.dao.DatabaseInterface;
+import crud.management.persistence.dao.DatabaseUserInterface;
 import crud.management.persistence.model.Project;
 import crud.management.persistence.model.User;
 
@@ -49,40 +46,26 @@ public class UserManagerImpl implements UserManager {
 		return userInfo;
 	}
 
-	private ProjectInfo getProjectInfo(Project project, User user) {
-		String managerName = user.getName();
-		ProjectInfo projectInfo = new ProjectInfo();
-		projectInfo.setProjectID(project.getProjectID());
-		projectInfo.setProjectName(project.getName());
-		projectInfo.setManagerName(managerName);
-
-		List<String> employees = new ArrayList<String>();
-
-		for (User employee : project.getUsers()) {
-			employees.add(employee.getName());
-		}
-
-		projectInfo.setEmployeeNames(employees);
-
-		return projectInfo;
-
-	}
-
 	@Override
 	public UserInfo login(String email, String password) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
 
 		User user = db.getUserByEmail(email);
+		if (user.getPassword().equals(password)) {
+			return getUserInfo(user);
+		} else {
+			return getUserInfo(null);
 
-		return getUserInfo(user);
+		}
+
 	}
 
 	@Override
 	public UserInfo signUp(String name, String phoneNumber, String email, String password, String company) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
 		boolean isDuplicate = db.isDuplicateEntry(email);
 
 		if (isDuplicate == true) {
@@ -102,51 +85,10 @@ public class UserManagerImpl implements UserManager {
 		return getUserInfo(user);
 	}
 
-	@Override
-	public ProjectInfo createProject(String name, String managerEmail) {
-		ProjectInfo status;
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		User user = db.getUserByEmail(managerEmail);
-
-		if (user != null) {
-			Project project = new Project();
-			project.setName(name);
-			project.setManagerID(user.getUserID());
-			db.addProject(project);
-
-			return getProjectInfo(project, user);
-		} else {
-			status = new ProjectInfo();
-			status.setStatus("Userul nu exista");
-		}
-
-		return status;
-	}
-
-	@Override
-	public ProjectInfo asignUserToProject(String userEmail, String projectName) {
-		ProjectInfo status;
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		User user = db.getUserByEmail(userEmail);
-		Project project = db.getProjectByName(projectName);
-		if (user != null && project != null) {
-			project.addUser(user);
-			db.updateProject(project);
-			status = getProjectInfo(project, user);
-		} else {
-			status = new ProjectInfo();
-			status.setStatus("Userul nu exista");
-		}
-
-		return status;
-	}
-
 	public UserInfo setPassword(String email, String newPassword, String oldPassword) {
 		UserInfo status;
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
 		User user = db.getUserByEmail(email);
 		if (user != null) {
 			if (user.getPassword().equals(oldPassword)) {
@@ -170,7 +112,7 @@ public class UserManagerImpl implements UserManager {
 	public List<UserInfo> listUsers() {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
 
 		try {
 			List<UserInfo> usersInfo = new ArrayList<UserInfo>();
@@ -196,57 +138,10 @@ public class UserManagerImpl implements UserManager {
 
 	}
 
-	public List<ProjectInfo> listProjects() {
-
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-
-		try {
-			List<ProjectInfo> projectsInfo = new ArrayList<ProjectInfo>();
-
-			List<Project> projectsList = db.listProjects();
-			for (Project project : projectsList) {
-				ProjectInfo projectInfo = new ProjectInfo();
-				projectInfo.setProjectID(project.getProjectID());
-				projectInfo.setProjectName(project.getName());
-				projectInfo.setManagerName(project.getName());
-
-				List<String> users = new ArrayList<String>();
-
-				for (User user : project.getUsers()) {
-					users.add(user.getName());
-				}
-
-				projectInfo.setEmployeeNames(users);
-
-				projectsInfo.add(projectInfo);
-			}
-
-			return projectsInfo;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-
-	@Override
-	public boolean deleteProject(String projectName) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
-		Project project = db.getProjectByName(projectName);
-		if (project != null) {
-			db.deleteProject(project.getProjectID());
-		}
-
-		return true;
-	}
-
 	@Override
 	public boolean deleteUser(String name) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		DatabaseInterface db = (DatabaseInterface) context.getBean("databaseBean");
+		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
 		User user = db.getUserByEmail(name);
 		if (user != null) {
 			db.deleteUser(user.getUserID());

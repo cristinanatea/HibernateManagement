@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sample.commons.ProjectInfo;
 import com.sample.commons.UserInfo;
 
+import crud.management.business.ProjectManager;
 import crud.management.business.UserManager;
 
 
@@ -55,9 +56,9 @@ public class ProjectController {
 				String managerEmail = jsonObj.getString("managerEmail");
 
 				ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-				UserManager manager = (UserManager) context.getBean("userManagerBean");
+				ProjectManager projManager = (ProjectManager) context.getBean("projectManagerBean");
 
-				return manager.createProject(name, managerEmail);
+				return projManager.createProject(name, managerEmail);
 			}
 			
 		} catch (Exception e) {
@@ -79,9 +80,8 @@ public class ProjectController {
 			String projectName = jsonObj.getString("projectName");
 
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			UserManager manager = (UserManager) context.getBean("userManagerBean");
-
-			return manager.asignUserToProject(userEmail, projectName);
+			ProjectManager projManager = (ProjectManager) context.getBean("projectManagerBean");
+			return projManager.asignUserToProject(userEmail, projectName);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;
@@ -96,9 +96,8 @@ public class ProjectController {
 	public List<ProjectInfo> listProjects() {
 		try {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			UserManager manager = (UserManager) context.getBean("userManagerBean");
-
-			return manager.listProjects();
+			ProjectManager projManager = (ProjectManager) context.getBean("projectManagerBean");
+			return projManager.listProjects();
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return null;
@@ -114,12 +113,12 @@ public class ProjectController {
 		
 		try {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			UserManager manager = (UserManager) context.getBean("userManagerBean");
-			
+		
+			ProjectManager projManager = (ProjectManager) context.getBean("projectManagerBean");
 			jsonObj = new JSONObject(json);
 			String name = jsonObj.getString("projectName"); 
 			
-			return manager.deleteProject(name);
+			return projManager.deleteProject(name);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return false;

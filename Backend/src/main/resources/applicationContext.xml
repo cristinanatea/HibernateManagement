@@ -16,7 +16,7 @@
 		<property name="username" value="root" />
 		<property name="password" value="password" />
 	</bean>
-	
+
 	<!-- Hibernate 4 SessionFactory Bean definition -->
 	<bean id="hibernate4AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -36,13 +36,25 @@
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
-	</bean>	
-	
-	<bean id="databaseBean" class="crud.management.persistence.dao.impl.DatabaseImpl">
-		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-		<bean id="userManagerBean" class="crud.management.business.impl.UserManagerImpl">
-		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+
+	<bean id="databaseProjectBean"
+		class="crud.management.persistence.dao.impl.DatabaseProjectImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
+	<bean id="userManagerBean"
+		class="crud.management.business.impl.UserManagerImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="databaseUserBean"
+		class="crud.management.persistence.dao.impl.DatabaseUserImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="projectManagerBean" class="crud.management.business.impl.ProjectManagerImpl">
+<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+</bean>
 
 </beans>
