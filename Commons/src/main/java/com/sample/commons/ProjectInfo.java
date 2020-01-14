@@ -7,9 +7,23 @@ public class ProjectInfo {
 	int projectID;
 	String projectName;
 	String managerName;
+	String userName;
+	String  userEmail;
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 	List<String>employeeNames;
 	String status = "";
-	
 	
 	public String getStatus() {
 		return status;
