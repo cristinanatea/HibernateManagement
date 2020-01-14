@@ -42,12 +42,10 @@ public class UserController {
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
 
 			UserInfo userInfo = manager.login(email, password);
-/*
-			if (userInfo != null) {
-				System.out.println("User logged in: " + userInfo);
-				session.setAttribute("userInfo", userInfo);
-			}
-*/
+			/*
+			 * if (userInfo != null) { System.out.println("User logged in: " + userInfo);
+			 * session.setAttribute("userInfo", userInfo); }
+			 */
 			return userInfo;
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
@@ -117,6 +115,7 @@ public class UserController {
 			return null;
 		}
 	}
+
 	@DELETE
 	@Path("/deleteUser")
 
@@ -124,20 +123,19 @@ public class UserController {
 	public boolean deleteUser(String json) {
 		JSONObject jsonObj;
 		System.out.println("deleteUser: am primit " + json);
-		
+
 		try {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			UserManager manager = (UserManager) context.getBean("userManagerBean");
-			
+
 			jsonObj = new JSONObject(json);
-			String name = jsonObj.getString("name"); 
-			
+			String name = jsonObj.getString("name");
+
 			return manager.deleteUser(name);
 		} catch (Exception e) {
 			System.out.println("exceptie " + e);
 			return false;
 		}
 	}
-	
 
 }

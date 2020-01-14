@@ -2,8 +2,11 @@ package crud.management.business;
 
 import java.util.List;
 
-
+import com.sample.commons.ProjectInfo;
 import com.sample.commons.UserInfo;
+
+import crud.management.persistence.model.Project;
+import crud.management.persistence.model.User;
 
 public interface UserManager {
 	public UserInfo login(String email, String password);
@@ -15,4 +18,6 @@ public interface UserManager {
 	public List<UserInfo> listUsers();
 
 	public boolean deleteUser(String name);
+
+	
 }

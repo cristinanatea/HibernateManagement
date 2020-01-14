@@ -6,8 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.sample.commons.ProjectInfo;
 import com.sample.commons.UserInfo;
 import crud.management.business.UserManager;
+import crud.management.persistence.dao.DatabaseProjectInterface;
 import crud.management.persistence.dao.DatabaseUserInterface;
 import crud.management.persistence.model.Project;
 import crud.management.persistence.model.User;
@@ -148,5 +151,23 @@ public class UserManagerImpl implements UserManager {
 		}
 
 		return true;
+	}
+
+	private ProjectInfo getProjectInfo(Project project, User user) {
+		ProjectInfo projectInfo = new ProjectInfo();
+
+		if (project != null) {
+
+			List<UserInfo> employees = new ArrayList<UserInfo>();
+
+			for (User employee : project.getUsers()) {
+
+				employees.add(getUserInfo(employee));
+			}
+
+			projectInfo.setEmployees(employees);
+
+		}
+		return projectInfo;
 	}
 }
