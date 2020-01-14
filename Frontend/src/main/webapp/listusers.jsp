@@ -41,30 +41,39 @@
 	<br />
 	<c:forEach items="${projectList}" var="projInfo">
 			Project: ${projInfo.projectName}<br />
-
-		<c:if test="${admin}">
-			<form action="deleteProject" method="POST">
-				<input type="hidden" name="name" value="${projInfo.projectName}" />
-				<button type="submit" value="Submit">Delete project</button>
-			</form>
-		</c:if>
-		<c:if test="${admin}">
-			<form action="deleteUser" method="POST">
-				<input type="hidden" name="name" value="${userInfo.name}" />
-				<button type="submit" value="Submit">Delete user</button>
-			</form>
-		</c:if>
+			 </c:forEach>
 		<ul>
-			<c:forEach items="${projInfo.employeeNames}" var="employee">
-				<li>${employee}</li>
-			</c:forEach>
-		</ul>
-	</c:forEach>
+			
+			<c:if test="${admin}">
+ <form action="deleteUser" method="POST">
+					<input type="hidden" name="name" value="${userInfo.name}" /> 
+					<button type="submit" value="Submit">Delete user</button>
+					
+				</form>
+</c:if>
+			
+			<ul>
+				
+				<c:forEach items="${projInfo.employeeNames}" var="employee">
+ <li>${employee}</li>
+ </c:forEach>
+			</ul>
 
-	<form action="logout" method="post">
-		<button type="submit">Logout</button>
-	</form>
 
+			<ul>
+				
+				<c:forEach items="${projInfo.employees}" var="employee">
+ <form action="deleteUser" method="POST">
+						 <input type="hidden" name="name" value="${employee.email}" /> 
+						<button type="submit" value="Submit">Delete user</button>
+						
+					</form>
+ <li>${employee}</li>
+ </c:forEach>
+			</ul>
 
+			<form action="logout" method="post">
+				<button type="submit">Logout</button>
+			</form>
 </body>
 </html>
