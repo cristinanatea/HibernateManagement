@@ -60,12 +60,15 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("User logged in: " + userInfo);
 				session.setAttribute("userInfo", userInfo);
 			}
-			if ((userInfo.getEmail() == null) || (userInfo.getEmail().equals(""))){
-			 
+			if ((userInfo == null) || (userInfo.getEmail() == null) || (userInfo.getEmail().equals(""))) {
+
 				request.setAttribute("message", "Invalid username or password");
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 				return;
-			}
+				} else {
+				System.out.println("User logged in: " + userInfo);
+				session.setAttribute("userInfo", userInfo);
+				}
 			
 			request.setAttribute("user", userInfo);
 			request.getRequestDispatcher("/listusers").forward(request, response);

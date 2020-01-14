@@ -7,10 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.sample.commons.DeleteUserDTO;
+import com.sample.commons.LoginDTO;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -22,14 +25,17 @@ public class DeleteUserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
+		HttpSession session = request.getSession();
 
 		Client client = Client.create();
 		WebResource webResource = client.resource("http://localhost:8080/HibernateManagement/rest/user/deleteUser");
-
-
+	
+		DeleteUserDTO deleteUserInfo = new DeleteUserDTO();
+		deleteUserInfo.setName(name);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		// Java object to JSON string
-		String jsonString = "{'name': '"+name +"'}";
+		String jsonString = mapper.writeValueAsString(deleteUserInfo);
 
 		ClientResponse status = webResource.type(MediaType.APPLICATION_JSON_TYPE).delete(ClientResponse.class,jsonString);
 
