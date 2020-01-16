@@ -26,7 +26,7 @@ public class UserManagerImpl implements UserManager {
 
 	}
 
-	private UserInfo getUserInfo(User user) {
+	public static UserInfo getUserInfo(User user) {
 		UserInfo userInfo = new UserInfo();
 
 		if (user != null) {
@@ -140,34 +140,29 @@ public class UserManagerImpl implements UserManager {
 		}
 
 	}
-
+	
 	@Override
-	public boolean deleteUser(String name) {
+	public boolean deleteUserFromProject(String email, String projectName) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
-		User user = db.getUserByEmail(name);
+		DatabaseProjectInterface dbProj = (DatabaseProjectInterface) context.getBean("databaseProjectBean");
+		User user = db.getUserByEmail(email);
+		Project project = dbProj.getProjectByName(projectName);
+		if ((user != null) && (project != null)) {
+			db.deleteUserFromProject(user.getUserID(), project);
+		}
+
+		return true;
+	}
+	@Override
+	public boolean deleteUser(String email) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		DatabaseUserInterface db = (DatabaseUserInterface) context.getBean("databaseUserBean");
+		User user = db.getUserByEmail(email);
 		if (user != null) {
 			db.deleteUser(user.getUserID());
 		}
 
 		return true;
-	}
-
-	private ProjectInfo getProjectInfo(Project project, User user) {
-		ProjectInfo projectInfo = new ProjectInfo();
-
-		if (project != null) {
-
-			List<UserInfo> employees = new ArrayList<UserInfo>();
-
-			for (User employee : project.getUsers()) {
-
-				employees.add(getUserInfo(employee));
-			}
-
-			projectInfo.setEmployees(employees);
-
-		}
-		return projectInfo;
 	}
 }

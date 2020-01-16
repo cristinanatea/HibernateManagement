@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sample.commons.ProjectInfo;
+import com.sample.commons.UserInfo;
 
 import crud.management.business.ProjectManager;
 import crud.management.persistence.dao.DatabaseProjectInterface;
@@ -25,25 +26,25 @@ public class ProjectManagerImpl implements ProjectManager{
 		this.sessionFactory = sessionFactory;
 
 	}
-	
-	private ProjectInfo getProjectInfo(Project project, User user) {
-		String managerName = user.getName();
+
+	@Override
+	public ProjectInfo getProjectInfo(Project project, User user) {
 		ProjectInfo projectInfo = new ProjectInfo();
-		projectInfo.setProjectID(project.getProjectID());
-		projectInfo.setProjectName(project.getName());
-		projectInfo.setManagerName(managerName);
 
-		List<String> employees = new ArrayList<String>();
+		if (project != null) {
 
-		for (User employee : project.getUsers()) {
-			employees.add(employee.getName());
+			List<UserInfo> employees = new ArrayList<UserInfo>();
+
+			for (User employee : project.getUsers()) {
+				employees.add(UserManagerImpl.getUserInfo(employee));
+			}
+
+			projectInfo.setEmployees(employees);
+
 		}
-
-		projectInfo.setEmployeeNames(employees);
-
 		return projectInfo;
-
 	}
+	
 	@Override
 	public ProjectInfo createProject(String name, String managerEmail) {
 		ProjectInfo status;
@@ -102,13 +103,13 @@ public class ProjectManagerImpl implements ProjectManager{
 				projectInfo.setProjectName(project.getName());
 				projectInfo.setManagerName(project.getName());
 
-				List<String> users = new ArrayList<String>();
+				List<UserInfo> employees = new ArrayList<UserInfo>();
 
-				for (User user : project.getUsers()) {
-					users.add(user.getName());
+				for (User employee : project.getUsers()) {
+					employees.add(UserManagerImpl.getUserInfo(employee));
 				}
 
-				projectInfo.setEmployeeNames(users);
+				projectInfo.setEmployees(employees);
 
 				projectsInfo.add(projectInfo);
 			}

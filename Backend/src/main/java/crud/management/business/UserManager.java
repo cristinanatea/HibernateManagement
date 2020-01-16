@@ -17,7 +17,7 @@ public interface UserManager {
 
 	public List<UserInfo> listUsers();
 
-	public boolean deleteUser(String name);
-
+	public boolean deleteUser(String email);
+	public boolean deleteUserFromProject(String email, String projectName);	
 	
 }

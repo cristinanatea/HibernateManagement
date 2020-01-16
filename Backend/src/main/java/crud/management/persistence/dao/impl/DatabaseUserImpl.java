@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import crud.management.persistence.dao.DatabaseUserInterface;
+import crud.management.persistence.model.Project;
 import crud.management.persistence.model.User;
 
 public class DatabaseUserImpl implements DatabaseUserInterface {
@@ -39,8 +40,9 @@ public class DatabaseUserImpl implements DatabaseUserInterface {
 
 	public List<User> listUsers() {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.beginTransaction();
+		Transaction tx1 = session.beginTransaction();
 		List<User> usersList = session.createQuery("from User").list();
+		tx1.commit();
 		return usersList;
 	}
 
@@ -52,11 +54,32 @@ public class DatabaseUserImpl implements DatabaseUserInterface {
 		return user;
 	}
 
+	public boolean deleteUserFromProject(int UserID, Project project) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx1 = session.beginTransaction();
+		User user = (User) session.get(User.class, new Integer(UserID));
+		if (null != user) {			
+		    for(Project item : user.getProjects())
+		        if(project.getProjectID() == item.getProjectID()) {
+		        	user.getProjects().remove(item);
+		        	break;
+		        }
+
+			tx1.commit();
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean deleteUser(int UserID) {
 		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx1 = session.beginTransaction();
 		User user = (User) session.get(User.class, new Integer(UserID));
 		if (null != user) {
+			user.getProjects().clear();
+			
 			session.delete(user);
+			tx1.commit();
 			return true;
 		}
 		return false;

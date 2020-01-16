@@ -114,11 +114,32 @@ public class UserController {
 			System.out.println("exceptie " + e);
 			return null;
 		}
-	}
+	}	
+	
+	@DELETE
+	@Path("/deleteUserFromProject")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean deleteUserFromProject(String json) {
+		JSONObject jsonObj;
+		System.out.println("deleteUser: am primit " + json);
 
+		try {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			UserManager manager = (UserManager) context.getBean("userManagerBean");
+
+			jsonObj = new JSONObject(json);
+			String name = jsonObj.getString("name");
+			String projectName = jsonObj.getString("projectName");
+
+			return manager.deleteUserFromProject(name, projectName);
+		} catch (Exception e) {
+			System.out.println("exceptie " + e);
+			return false;
+		}
+	}
+	
 	@DELETE
 	@Path("/deleteUser")
-
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean deleteUser(String json) {
 		JSONObject jsonObj;

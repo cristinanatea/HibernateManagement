@@ -17,11 +17,6 @@
 				name="password" value="Ausy" />
 		</div>
 
-		<tr>
-			<td></td>
-			<td>Remember Me: <input type="checkbox" name="remember-me" /></td>
-		</tr>
-
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><c:if
 			test="${!empty message}">
 			<div class="text-center">
