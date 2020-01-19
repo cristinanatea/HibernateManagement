@@ -6,80 +6,17 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Simply Me</title>
+  <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-  body {
-    font: 30px Comic Sans MS, sans-serif;
-    line-height: 1.8;
-    background-color: #b0988c;
-    
-  }
-  p {font-size: 16px;}
-  .margin {margin-bottom: 45px;}
-  .bg-1 { 
-    background-color: #68463c; 
-    color: #b0988c;
-  }
-  .bg-2 { 
-    background-color: #68463c;
-    color:#b0988c;
-  }
+  
 
-  .container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-  .navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
-	background-color: #b0988c;
-	
-  }
-  .navbar-nav  li a:hover {
-    color: yellow !important;
-  }
-  .navbar-nav  li a {
-    color: white !important;
-	font-weight: bold;
-  }
-  .navbar-toggle{
-   font-style:Helvetica;
-  }
-  .navbar-brand>img {
-    display: block;
-	border-radius: 50%;
-	margin-top:-30px;
-	margin-bottom:-10px;
-}
- .glyphicon glyphicon-search{
-     background-color:#b0988c;
+  <link href="<c:url value="/style.css" />" rel="stylesheet">
 
- }
- .btn btn-default btn-lg{
-     background-color:#b0988c;
- }
- .btn btn-default btn-lg{
-     background-color:#b0988c;
- }
- 
- .logo {
-     position: absolute;
-     left: 20px;
-     top: 20px;
- }
-
-  </style>
 </head>
 <body>
 
@@ -91,7 +28,7 @@
     </div>
     <div class="menu collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="listusers">Home</a></li>
+        <li><a href="index.jsp">Home</a></li>
         <li><a href="Signup.jsp">SignUp</a></li>
         <li><a href="login.jsp">Login</a></li>
       </ul>
@@ -113,7 +50,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="container-fluid bg-4 text-center"></footer
+<footer class="container-fluid bg-4 text-center"></footer>
  
 </body>
 </html>

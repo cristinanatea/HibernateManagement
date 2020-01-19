@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 		LoginDTO loginInfo = new LoginDTO();
 		loginInfo.setEmail(email);
 		loginInfo.setPassword(parola);
+		System.out.println("LoginDTO: " + email + " " + parola);
 
 		ObjectMapper mapper = new ObjectMapper();
 		// Java object to JSON string

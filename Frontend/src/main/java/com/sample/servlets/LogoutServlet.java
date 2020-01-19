@@ -16,6 +16,10 @@ public class LogoutServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		 doPost(req, res);
+	}
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		HttpSession session = req.getSession();
 		session.invalidate();
